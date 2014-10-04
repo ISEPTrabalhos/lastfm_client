@@ -19,7 +19,7 @@ function getArtistTopTags() {
     global $api_url;
     global $api_key;
     $artist = $_GET["artist"];
-
+    $artist = str_replace(' ', "%20", $artist);
     $responseXML = file_get_contents($api_url . 'artist.gettoptags&artist=' . $artist . '&api_key=' . $api_key);
     $newXML = new DOMDocument('1.0', 'ISO-8859-1');
 
@@ -40,6 +40,7 @@ function getTopTracksTag() {
     global $api_url;
     global $api_key;
     $tag = $_GET["tag"];
+    $tag = str_replace(' ', "%20", $tag);
     $limit = $_GET["limit"];
     $response = file_get_contents($api_url . 'tag.gettoptracks&tag=' . $tag . '&limit=' . $limit . '&api_key='. $api_key .'&format=json');
     echo $response;

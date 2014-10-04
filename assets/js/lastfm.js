@@ -50,7 +50,6 @@ function getTopTracksTag() {
     var xmlHttpObj = CreateXmlHttpRequestObject();
     var tag = document.getElementById("selectTopTag").value;
     tag = tag.replace(/ /g, "%20");
-    console.log(tag);
     var limit = document.getElementById("topTrackLimit").value;
     xmlHttpObj.open("GET", "assets/php/lastfm.php?func=getTopTracksTag&tag=" + tag + "&limit=" + limit + "&format=json", true);
     xmlHttpObj.onreadystatechange = function () {
