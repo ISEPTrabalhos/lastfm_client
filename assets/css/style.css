@@ -30,6 +30,7 @@ body {
 #content #controlls #selectTopTag,
 #content #controlls #topTrackLimit{
     width: 90%;
+    height: 30px;
     margin: 0 auto;
 
     display:block;
@@ -44,12 +45,12 @@ body {
 #content #controlls #topTrackLimit {width: 40%; text-align: center; font-size: 15pt;}
 
 #content #controlls #selectTopTag {
-
-}
-
-#content #controlls #selectTopTag option {
-    font-size: 15pt;
-    height: 100px;
+    display: block;
+    float: none;
+    font-size: 12pt;
+    height: 40px;
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
 }
 
 #content #divTagTopTracks {

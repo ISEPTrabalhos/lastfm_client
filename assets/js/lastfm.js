@@ -26,6 +26,13 @@ function getArtistTopTags(){
             var select = document.getElementById("selectTopTag");
             select.innerHTML="";
             select.onchange = function(){getTopTracksTag();};
+
+            var option0 = document.createElement("option");
+            var text0 = document.createTextNode("--");
+            option0.appendChild(text0);
+            option0.value = "--";
+            select.appendChild(option0);
+
             for (var i = 0; i < tagNameList.length - 1; i++){
                 var option = document.createElement("option");
                 var text = document.createTextNode(tagNameList[i]);
