@@ -1,0 +1,81 @@
+@import url(http://fonts.googleapis.com/css?family=Oldenburg|Open+Sans);
+
+body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-image: url('../img/bg.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+#content {
+    width: 60%;
+    margin: 0 auto;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.wraper {
+    width: 600px;
+    margin: 0 auto;
+}
+
+#content header h1 {
+    text-align: center;
+    font-family: 'Oldenburg', cursive;
+    font-size: 50pt;
+}
+
+#content #controlls #artistName,
+#content #controlls #selectTopTag,
+#content #controlls #topTrackLimit{
+    width: 90%;
+    margin: 0 auto;
+
+    display:block;
+    margin:0 auto;
+
+    font-size: 20pt;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+
+}
+
+#content #controlls #topTrackLimit {width: 40%; text-align: center; font-size: 15pt;}
+
+#content #controlls #selectTopTag {
+
+}
+
+#content #controlls #selectTopTag option {
+    font-size: 15pt;
+    height: 100px;
+}
+
+#content #divTagTopTracks {
+    width: 90%;
+    margin: 10px auto;
+}
+
+#content #divTagTopTracks table {width: 100%;}
+
+#content #divTagTopTracks table tr{
+    display: block;
+
+    background-color: #3d3d3d;
+    color: #fff;
+
+    padding: 3px 5px 3px 5px;
+    margin: 3px 0 3px 0;
+    border-radius: 6px;
+    font-size: 14pt;
+}
+
+#content #divTagTopTracks table tr a,
+#content #divTagTopTracks table tr a:link {
+    text-decoration: none;
+    color: inherit;
+}
+
+#content #divTagTopTracks table tr:hover a {color: #000;}
+#content #divTagTopTracks table tr:hover {background-color: #d4d4d4;}

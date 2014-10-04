@@ -1,7 +1,3 @@
-/**
- * Created by antoniosilva on 03/10/14.
- */
-
 function CreateXmlHttpRequestObject( )
 {
 
@@ -17,11 +13,11 @@ function CreateXmlHttpRequestObject( )
     return xmlHttpObj;
 }
 
-    //Function that calls via AJaX the php function that returns the top tags of an artist
+//Function that calls via AJaX the php function that returns the top tags of an artist
 function getArtistTopTags(){
     var xmlHttpObj = CreateXmlHttpRequestObject();
     var artist = document.getElementById("artistName").value;
-    xmlHttpObj.open("GET", "http://phpdev2.dei.isep.ipp.pt/~i111305/trabalho1/trabalho1.php?func=getArtistTopTags&artist=" + artist, true);
+    xmlHttpObj.open("GET", "assets/php/lastfm.php?func=getArtistTopTags&artist=" + artist, true);
     xmlHttpObj.onreadystatechange = function() {
         if (xmlHttpObj.readyState == 4 && xmlHttpObj.status == 200) {
             var response = xmlHttpObj.responseText;
@@ -42,12 +38,12 @@ function getArtistTopTags(){
     xmlHttpObj.send(null);
 }
 
-    //Function that get's via AJaX the N top tracks of a tag
+//Function that get's via AJaX the N top tracks of a tag
 function getTopTracksTag() {
     var xmlHttpObj = CreateXmlHttpRequestObject();
     var tag = document.getElementById("selectTopTag").value;
     var limit = document.getElementById("topTrackLimit").value;
-    xmlHttpObj.open("GET", "http://phpdev2.dei.isep.ipp.pt/~i111305/trabalho1/trabalho1.php?func=getTopTracksTag&tag=" + tag + "&limit=" + limit, true);
+    xmlHttpObj.open("GET", "assets/php/lastfm.php?func=getTopTracksTag&tag=" + tag + "&limit=" + limit, true);
     xmlHttpObj.onreadystatechange = function () {
         if (xmlHttpObj.readyState == 4 && xmlHttpObj.status == 200) {
             var response = JSON.parse(xmlHttpObj.responseText);
@@ -71,16 +67,3 @@ function getTopTracksTag() {
     };
     xmlHttpObj.send(null);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
