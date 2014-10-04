@@ -27,7 +27,6 @@ function getArtistTopTags() {
     $nodelist = $newXML->getElementsByTagName("name");
 
     $tags = "";
-
     for ($i = 0; $i < 10; $i++) {
         $tagNode = $nodelist->item($i);
         $tagValue = $tagNode->nodeValue;
@@ -42,7 +41,6 @@ function getTopTracksTag() {
     global $api_key;
     $tag = $_GET["tag"];
     $limit = $_GET["limit"];
-
     $response = file_get_contents($api_url . 'tag.gettoptracks&tag=' . $tag . '&limit=' . $limit . '&api_key='. $api_key .'&format=json');
     echo $response;
 }

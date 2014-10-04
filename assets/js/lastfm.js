@@ -49,13 +49,14 @@ function getArtistTopTags(){
 function getTopTracksTag() {
     var xmlHttpObj = CreateXmlHttpRequestObject();
     var tag = document.getElementById("selectTopTag").value;
+    tag = tag.replace(/ /g, "%20");
+    console.log(tag);
     var limit = document.getElementById("topTrackLimit").value;
-    xmlHttpObj.open("GET", "assets/php/lastfm.php?func=getTopTracksTag&tag=" + tag + "&limit=" + limit, true);
+    xmlHttpObj.open("GET", "assets/php/lastfm.php?func=getTopTracksTag&tag=" + tag + "&limit=" + limit + "&format=json", true);
     xmlHttpObj.onreadystatechange = function () {
         if (xmlHttpObj.readyState == 4 && xmlHttpObj.status == 200) {
             var response = JSON.parse(xmlHttpObj.responseText);
             var topTracks = response.toptracks.track;
-            console.log(topTracks[0].name);
             var divTagTopTracks = document.getElementById("divTagTopTracks");
             divTagTopTracks.innerHTML="";
             var table = document.createElement("table");
