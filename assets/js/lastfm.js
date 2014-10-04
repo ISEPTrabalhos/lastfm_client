@@ -57,6 +57,7 @@ function getTopTracksTag() {
             var topTracks = response.toptracks.track;
             console.log(topTracks[0].name);
             var divTagTopTracks = document.getElementById("divTagTopTracks");
+            divTagTopTracks.innerHTML="";
             var table = document.createElement("table");
             for (var i = 0; i < topTracks.length; i++) {
                 var tr = document.createElement("tr");
