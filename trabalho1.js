@@ -21,15 +21,14 @@ function CreateXmlHttpRequestObject( )
 function getArtistTopTags(){
     var xmlHttpObj = CreateXmlHttpRequestObject();
     var artist = document.getElementById("artistName").value;
-    xmlHttpObj.open("GET", "http://phpdev2.dei.isep.ipp.pt/~i111305/trabalho1/trabalho1.php?artist=" + artist, true);
+    xmlHttpObj.open("GET", "http://phpdev2.dei.isep.ipp.pt/~i111305/trabalho1/trabalho1.php?func=getArtistTopTags&artist=" + artist, true);
     xmlHttpObj.onreadystatechange = function() {
         if (xmlHttpObj.readyState == 4 && xmlHttpObj.status == 200) {
             var response = xmlHttpObj.responseText;
             var tagNameList = response.split(";");
             var divTopTags = document.getElementById("divTopTags");
-            divTopTags.innerHTML="";
-            var select = document.createElement("select");
-            select.id="selectTopTag";
+            var select = document.getElementById("selectTopTag");
+            select.innerHTML="";
             select.onchange = function(){getTopTracksTag();};
             for (var i = 0; i < tagNameList.length - 1; i++){
                 var option = document.createElement("option");
@@ -38,7 +37,6 @@ function getArtistTopTags(){
                 option.value = tagNameList[i];
                 select.appendChild(option);
             }
-            divTopTags.appendChild(select);
         }
     };
     xmlHttpObj.send(null);
@@ -49,19 +47,21 @@ function getTopTracksTag() {
     var xmlHttpObj = CreateXmlHttpRequestObject();
     var tag = document.getElementById("selectTopTag").value;
     var limit = document.getElementById("topTrackLimit").value;
-    xmlHttpObj.open("GET", "http://phpdev2.dei.isep.ipp.pt/~i111305/trabalho1/trabalho1.php?tag=" + tag + "&limit=" + limit, true);
+    xmlHttpObj.open("GET", "http://phpdev2.dei.isep.ipp.pt/~i111305/trabalho1/trabalho1.php?func=getTopTracksTag&tag=" + tag + "&limit=" + limit, true);
     xmlHttpObj.onreadystatechange = function () {
-        if (xmlHttpObj.readyState == 4 && xmlHttpObj.status == 200){
+        if (xmlHttpObj.readyState == 4 && xmlHttpObj.status == 200) {
             var response = JSON.parse(xmlHttpObj.responseText);
+            var topTracks = response.toptracks.track;
+            console.log(topTracks[0].name);
             var divTagTopTracks = document.getElementById("divTagTopTracks");
             var table = document.createElement("table");
-            for (var i = 0; i < response.length; i++){
+            for (var i = 0; i < topTracks.length; i++) {
                 var tr = document.createElement("tr");
                 var td = document.createElement("td");
                 var a = document.createElement("a");
-                var text = document.createTextNode(response[i].name);
+                var text = document.createTextNode(topTracks[i].name);
                 a.appendChild(text);
-                a.href=response[i].url;
+                a.href = topTracks[i].url;
                 td.appendChild(a);
                 tr.appendChild(td);
                 table.appendChild(tr);
