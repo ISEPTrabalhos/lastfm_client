@@ -77,3 +77,18 @@ body {
 
 #content #divTagTopTracks table tr:hover a {color: #000;}
 #content #divTagTopTracks table tr:hover {background-color: #d4d4d4;}
+
+#headerTop {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 40px;
+    background: rgba(0,0,0,0.5);
+}
+
+#headerTop div {
+    padding: 10px;
+    color: white;
+    font-size: 12px;
+    text-align: center;
+}
