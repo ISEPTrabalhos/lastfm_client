@@ -14,11 +14,24 @@
         case 'getTopTracksTag':
             getTopTracksTag();
             break;
+        case 'getTrackInfo':
+            getTrackInfo();
         default:
             break;
     }
 
-    function getArtistTopTags() {
+function getTrackInfo() {
+        global $api_url;
+        global $api_key;
+        $artist = $_GET["artist"];
+        $artist = str_replace(' ', "%20", $artist);
+        $track = $_GET["track"];
+        $track = str_replace(' ', "%20", $track);
+        $response = file_get_contents($api_url . 'track.getInfo&track=' . $track . '&artist=' . $artist . '&api_key='. $api_key .'&format=json');
+        echo $response;
+}
+
+function getArtistTopTags() {
         global $api_url;
         global $api_key;
         global $db;

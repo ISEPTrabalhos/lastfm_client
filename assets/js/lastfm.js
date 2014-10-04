@@ -43,16 +43,36 @@ function getTopTracksTag() {
         divTagTopTracks.innerHTML="";
         var table = document.createElement("table");
         for (var i = 0; i < topTracks.length; i++) {
+            getMoreInfo(topTracks[i].artist.name, topTracks[i].name);
             var tr = document.createElement("tr");
             var td = document.createElement("td");
             var a = document.createElement("a");
             var text = document.createTextNode(topTracks[i].name);
             a.appendChild(text);
-            a.href = topTracks[i].url;
+            //a.href = topTracks[i].url;
+            a.href="#";
+            //a.onclick = getMoreInfo(topTracks[i].artist.name, topTracks[i].name);
+                //getMoreInfo(topTracks[i].artist.name, topTracks[i].name);
             td.appendChild(a);
             tr.appendChild(td);
             table.appendChild(tr);
         }
         divTagTopTracks.appendChild(table);
     }), "GET";
+}
+
+function getMoreInfo(artistName, trackNmame) {
+    alert("HERE");
+    var divTeste = document.getElementById("divTesteToolTip");
+    var url = "assets/php/lastfm.php?func=getTrackInfo&track=" + trackNmame + "&artist=" + artistName + "&format=json";
+    url = url.replace(/ /g, "%20");
+    divTeste.innerHTML += url +"</br>";
+    sendRequest(url, function(xmlHttpObj) {
+        var response = JSON.parse(xmlHttpObj.responseText);
+        console.log(response);
+        divTeste.innerHTML += artistName; // responde.track.artist.name;
+        divTeste.innerHTML += "--> " + response.track.album.title;
+
+    }), "GET";
+
 }
