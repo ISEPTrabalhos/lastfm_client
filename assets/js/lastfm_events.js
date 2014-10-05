@@ -34,6 +34,7 @@ function getEvents(page) {
                 var start = document.createElement("p");
                 var description = document.createElement("p");
                 var image = document.createElement("img");
+                var map = document.createElement("iframe");
                 var clear = document.createElement("div");
 
                 title.className = "title";
@@ -63,6 +64,23 @@ function getEvents(page) {
                 image.src = obj.image[obj.image.length - 1]["#text"];
                 image.alt = "ImageShow";
 
+                var lat = obj.venue.location["geo:point"]["geo:lat"];
+                var long = obj.venue.location["geo:point"]["geo:long"]
+
+                map.width = "100%";
+                map.height = "400";
+                map.frameborder = "0";
+                map.scrolling = "no";
+                map.marginheight = "0";
+                map.marginwidth = "0";
+                map.style.border = "0";
+                map.src = 'https://www.google.com/maps/embed/v1/view' +
+                    '?key=' + 'AIzaSyDn-UcwMbrIiX8wgyNAlLyHnmqOvZsaddw' +
+                    '&center='+ lat +','+ long +
+                    '&zoom=15' +
+                    '&maptype=satellite';
+
+
                 result.appendChild(article);
                 article.appendChild(title);
                 if(obj.image[obj.image.length - 1]["#text"] != '') article.appendChild(image);
@@ -71,13 +89,13 @@ function getEvents(page) {
                 article.appendChild(start);
                 article.appendChild(clear);
                 article.appendChild(description);
+                article.appendChild(map);
             });
 
             var page = response.events["@attr"].page;
             var totalpages = response.events["@attr"].totalPages;
             var next = parseInt(page) + 1;
             var prev = parseInt(page) - 1;
-            console.log(page+" / "+totalpages);
 
             result.innerHTML += "<br />";
             if(parseInt(page) > 1) {
