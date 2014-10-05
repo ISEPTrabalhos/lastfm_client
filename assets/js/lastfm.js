@@ -1,3 +1,6 @@
+// Global Variables
+var divTooltip;
+
 //Function that calls via AJaX the php function that returns the top tags of an artist
 function getArtistTopTags(){
     var artist = document.getElementById("artistName").value;
@@ -49,7 +52,6 @@ function getTopTracksTag() {
             var a = document.createElement("a");
             var text = document.createTextNode(topTracks[i].name);
             a.appendChild(text);
-            //a.href = topTracks[i].url;
             var method = "getMoreInfo("+'"'+topTracks[i].artist.name+'"'+","+'"'+topTracks[i].name+'"'+")";
             a.href="javascript:"+method+";";
             td.appendChild(a);
@@ -59,14 +61,24 @@ function getTopTracksTag() {
         divTagTopTracks.appendChild(table);
     }), "GET";
 }
-
+//Function that  get's via AJaX a list of info of selected track
 function getMoreInfo(artistName, trackName) {
-    //alert("HERE");
-    var divTooltip = document.getElementById("divToolTip");
+    divTooltip = document.getElementById("divToolTip");
     divTooltip.innerHTML = "";
+    var artistNameCorrect = artistName;
     artistName = artistName.replace(/ /g, "%20");
+    // set album name
+    setAlbumName(artistName,trackName);
+    // set artist image
+    setArtistImage(artistName);
+    // set artist top 3 albums artist
+    setTop3Albums(artistName);
+    // set artist toptrack
+    setArtistTopTrack(artistName);
+}
+
+function setAlbumName(artistName,trackName) {
     trackName = trackName.replace(/ /g, "%20");
-    // get album name
     var url = "assets/php/lastfm.php?func=getTrackInfo&track=" + trackName + "&artist=" + artistName + "&format=json";
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
@@ -77,15 +89,19 @@ function getMoreInfo(artistName, trackName) {
         p2.innerHTML += "Album Name " + response.track.album.title;
         divTooltip.appendChild(p2);
     }), "GET";
-    // get artist image
-    url = "assets/php/lastfm.php?func=getArtistImage&artist=" + artistName + "&format=json";
+}
+
+function setArtistImage(artistName) {
+    var url = "assets/php/lastfm.php?func=getArtistImage&artist=" + artistName + "&format=json";
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
         var image = document.createElement("img");
         image.src = response.artist.image[2]["#text"];
         divTooltip.appendChild(image);
     }), "GET";
-    // get artist top 3 albums artist
+}
+
+function setTop3Albums(artistName) {
     url = "assets/php/lastfm.php?func=getArtistTop3Albums&artist=" + artistName + "&format=json";
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
@@ -99,7 +115,9 @@ function getMoreInfo(artistName, trackName) {
         }
         divTooltip.appendChild(p);
     }), "GET";
-    // get artist toptrack
+}
+
+function setArtistTopTrack(artistName) {
     url = "assets/php/lastfm.php?func=getArtistTopTrack&artist=" + artistName + "&format=json";
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
