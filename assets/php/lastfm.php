@@ -16,6 +16,10 @@
             break;
         case 'getTrackInfo':
             getTrackInfo();
+            break;
+        case 'getAlbumCover':
+            getAlbumCover();
+            break;
         default:
             break;
     }
@@ -82,6 +86,18 @@ function getArtistTopTags() {
             $query = "INSERT INTO logtracks (id, request, response) VALUES (NULL, '{$url}', '{$response}');";
             $db->insert($query);
         }
+
+        echo $response;
+    }
+
+    function getAlbumCover(){
+        global $db;
+        $mbid = $_GET["mbid"];
+        $url = "coverartarchive.org/release/" . $mbid;
+        $response = file_get_contents($url);
+
+        //  save data into DB
+        // ** code goes here **
 
         echo $response;
     }
