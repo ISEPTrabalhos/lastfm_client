@@ -29,6 +29,9 @@
         case 'getArtistTopTrack':
             getArtistTopTrack();
             break;
+        case 'getEventsAt':
+            getEventsAt($_GET['location'], $_GET['distance']);
+            break;
         default:
             break;
     }
@@ -137,5 +140,18 @@ function getArtistTopTags() {
         //  save data into DB
         // ** code goes here **
 
+        echo $response;
+    }
+
+    function getEventsAt($location = 'Porto', $distance = '10') {
+        global $api_url;
+        global $api_key;
+
+        $location = preg_replace('/\s+/', '%20', $location);
+
+        // http://ws.audioscrobbler.com/2.0/?method=geo.getEvents&location=porto&distance=10&api_key=e85bfd5e26e0e91b53160653d86ba063
+        $url = $api_url . 'geo.getEvents&location=' . $location . '&distance=' . $distance . '&api_key=' . $api_key . '&format=json';
+
+        $response = file_get_contents($url);
         echo $response;
     }

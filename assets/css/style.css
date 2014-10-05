@@ -23,9 +23,8 @@ body {
     font-size: 50pt;
 }
 
-#content #controlls #artistName,
-#content #controlls #selectTopTag,
-#content #controlls #topTrackLimit,
+#content table input,
+#content table select,
 #content table #eventName {
     width: 90%;
     height: 30px;
@@ -48,7 +47,8 @@ body {
     font-weight: bold;
 }
 
-#content #controlls #topTrackLimit {width: 40%; text-align: center; font-size: 15pt;}
+#content #controlls #topTrackLimit,
+#content #eventtable #limkm {width: 40%; text-align: center; font-size: 15pt;}
 
 #content #controlls #selectTopTag {
     display: block;
@@ -100,4 +100,37 @@ body {
     color: white;
     font-size: 12px;
     text-align: center;
+}
+
+
+article {
+    background-color: rgba(0,0,0,0.8);
+    border-radius: 5px;
+    color: #fff;
+    width: 100%;
+
+    padding: 0 10px 2px 10px;
+}
+
+article .title {
+    text-align: center;
+}
+
+article .image {
+    float: right;
+    border-radius: 3px;
+}
+
+article .artist:before {content: 'Artist: '; font-weight: bold;}
+article .location:before {content: 'Location: '; font-weight: bold;}
+article .start:before {content: 'Starting: '; font-weight: bold;}
+article .artist:before {content: 'Artist: '; font-weight: bold;}
+
+article a,
+article a:link {
+    text-decoration: none;
+    color: #ba2700;
+}
+.clear {
+    clear: both;
 }

@@ -34,18 +34,20 @@
                     <tr>
                         <td><input id="artistName" onkeyup="getArtistTopTags()" placeholder="Stevie Wonder" /></td>
                         <td><select id="selectTopTag"><option value="--">--</option></select></td>
-                        <td><input type="text" id="topTrackLimit" value="5" /></td>
+                        <td><input type="text" id="topTrackLimit" value="5" placeholder="5" /></td>
                         <td><button class="button" onclick="changeSearchTextField();">+</button></td>
                     </tr>
                 </table>
 
                 <table border="0" width="100%" id="eventtable" style="display: none;" >
                     <tr>
-                        <th width="95%">Event name</th>
+                        <th width="75%">Location name</th>
+                        <th width="20%">Lim (km)</th>
                         <th width="5%"></th>
                     </tr>
                     <tr>
-                        <td><input id="eventName" placeholder="iTunes Festival" onkeyup="getEvents();" /></td>
+                        <td><input id="eventName" placeholder="California" onkeyup="getEvents();" /></td>
+                        <td><input type="text" id="limkm" value="10" placeholder="10" /></td>
                         <td><button class="button" onclick="changeSearchTextField();">-</button></td>
                     </tr>
                 </table>
