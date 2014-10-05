@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Oldenburg|Open+Sans);
-
+@import url("tooltip.css");
 body {
     margin: 0;
     padding: 0;
@@ -92,39 +92,4 @@ body {
     color: white;
     font-size: 12px;
     text-align: center;
-}
-
-#divToolTip {
-    width: 700px;
-    height: 200px;
-    background: rgba(0,0,0,0.7);
-    border: 1px solid black;
-    border-radius: 3px;
-}
-#divToolTip .contentor {
-    position: absolute;
-    width: 100%;
-    margin: 0 auto;
-}
-#divToolTip div {
-    float: left;
-    color: green;
-    font-family: 'Oldenburg', cursive;
-    font-size: 13px;
-}
-#divToolTip .images {
-    width: 110px;
-    margin: 0 20px 0 20px;
-}
-#divToolTip .infos {
-    width: 350px;
-    margin: 20px 0 0 35px;
-}
-#divToolTip .images img {
-    padding-top: 10px;
-    width: 114px;
-    height: 114px;
-}
-#divToolTip div span {
-    color: white;
 }
