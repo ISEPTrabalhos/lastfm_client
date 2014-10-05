@@ -107,7 +107,7 @@ article {
     background-color: rgba(0,0,0,0.8);
     border-radius: 5px;
     color: #fff;
-    width: 100%;
+    width: 95%;
 
     padding: 0 10px 2px 10px;
 }
@@ -119,6 +119,7 @@ article .title {
 article .image {
     float: right;
     border-radius: 3px;
+    margin-left: 5px;
 }
 
 article .artist:before {content: 'Artist: '; font-weight: bold;}
@@ -131,6 +132,26 @@ article a:link {
     text-decoration: none;
     color: #ba2700;
 }
+
+.numBt {
+    width: 250px;
+    font-size: 30pt;
+    font-weight: bold;
+    color: #fff;
+    background-color: #000;
+    border-radius: 6px;
+    border: 1px solid #202020;
+
+    cursor: pointer;
+}
+
+.prev {float: left;}
+.next {float: right;}
+
 .clear {
     clear: both;
+}
+
+.invisible {
+    display: none;
 }

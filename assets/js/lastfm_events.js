@@ -11,21 +11,18 @@ function changeSearchTextField() {
     document.getElementById("selectTopTag").value = "--";
 }
 
-function getEvents() {
+function getEvents(page) {
     var place = document.getElementById("eventName").value;
     var limit = document.getElementById("limkm").value;
     var result = document.getElementById("divEventsResults");
     place = place.replace(/ /g, "%20");
 
     // assets/php/lastfm.php?func=getEventsAt&location=Porto&distance=20
-    var url = "assets/php/lastfm.php?func=getEventsAt&location="+ place +"&distance=" + limit;
+    var url = "assets/php/lastfm.php?func=getEventsAt&location=" + place + "&distance=" + limit + "&page=" + page;
 
     //send ajax request
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
-
-        var lim = 3;
-        var startOn = 0;
 
         if(typeof response.events != 'undefined') {
             result.innerHTML = "";
@@ -75,6 +72,24 @@ function getEvents() {
                 article.appendChild(clear);
                 article.appendChild(description);
             });
+
+            var page = response.events["@attr"].page;
+            var totalpages = response.events["@attr"].totalPages;
+            var next = parseInt(page) + 1;
+            var prev = parseInt(page) - 1;
+            console.log(page+" / "+totalpages);
+
+            result.innerHTML += "<br />";
+            if(parseInt(page) > 1) {
+                result.innerHTML += "<button class=\"numBt prev\" onclick=\"getEvents(" + prev + ");\">Previous</button>";
+            }
+
+            if(parseInt(page) < parseInt(totalpages)) {
+                result.innerHTML += "<button class=\"numBt next\" onclick=\"getEvents(" + next + ");\">Next</button>";
+            }
+
+            result.innerHTML += "<br /><div class=\"clear\"></div>";
+
         }
     }), "GET";
 }

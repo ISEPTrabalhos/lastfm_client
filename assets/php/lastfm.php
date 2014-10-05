@@ -30,7 +30,8 @@
             getArtistTopTrack();
             break;
         case 'getEventsAt':
-            getEventsAt($_GET['location'], $_GET['distance']);
+            $page = (isset($_GET['page']) && !empty($_GET['page'])) ? $_GET['page'] : '1';
+            getEventsAt($_GET['location'], $_GET['distance'], $page);
             break;
         default:
             break;
@@ -143,14 +144,14 @@ function getArtistTopTags() {
         echo $response;
     }
 
-    function getEventsAt($location = 'Porto', $distance = '10') {
+    function getEventsAt($location = 'Porto', $distance = '10', $page = '1', $limit = '3') {
         global $api_url;
         global $api_key;
 
         $location = preg_replace('/\s+/', '%20', $location);
 
-        // http://ws.audioscrobbler.com/2.0/?method=geo.getEvents&location=porto&distance=10&api_key=e85bfd5e26e0e91b53160653d86ba063
-        $url = $api_url . 'geo.getEvents&location=' . $location . '&distance=' . $distance . '&api_key=' . $api_key . '&format=json';
+        // http://ws.audioscrobbler.com/2.0/?method=geo.getEvents&location=porto&distance=10&api_key=e85bfd5e26e0e91b53160653d86ba063&limit=3&page=200
+        $url = $api_url . 'geo.getEvents&location=' . $location . '&distance=' . $distance . '&limit=' . $limit . '&page=' . $page . '&api_key=' . $api_key . '&format=json';
 
         $response = file_get_contents($url);
         echo $response;
