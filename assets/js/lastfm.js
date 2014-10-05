@@ -46,12 +46,12 @@ function getTopTracksTag() {
         divTagTopTracks.innerHTML="";
         var table = document.createElement("table");
         for (var i = 0; i < topTracks.length; i++) {
-            //getMoreInfo(topTracks[i].artist.name, topTracks[i].name);
             var tr = document.createElement("tr");
             var td = document.createElement("td");
             var a = document.createElement("a");
             var text = document.createTextNode(topTracks[i].name);
             a.appendChild(text);
+            // call method to get more info of selected track
             var method = "getMoreInfo("+'"'+topTracks[i].artist.name+'"'+","+'"'+topTracks[i].name+'"'+")";
             a.href="javascript:"+method+";";
             td.appendChild(a);
@@ -64,7 +64,7 @@ function getTopTracksTag() {
 //Function that  get's via AJaX a list of info of selected track
 function getMoreInfo(artistName, trackName) {
     divTooltip = document.getElementById("divToolTip");
-    var artistNameCorrect = artistName;
+    //xpto();
     artistName = artistName.replace(/ /g, "%20");
     // set album name
     setAlbumName(artistName,trackName);
@@ -75,7 +75,9 @@ function getMoreInfo(artistName, trackName) {
     // set artist toptrack
     setArtistTopTrack(artistName);
     //show div
-   divTooltip.style.display = "block";
+    divTooltip.style.display = "block";
+    //divTooltip.style.left = "50px";
+    //divTooltip.style.top = "321px";
 }
 
 function setAlbumName(artistName,trackName) {
