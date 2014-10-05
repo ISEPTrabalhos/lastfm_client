@@ -5,3 +5,7 @@ function changeSearchTextField() {
     table1.style.display = (table1.style.display == "none") ? "block" : "none";
     table2.style.display = (table2.style.display == "none") ? "block" : "none";
 }
+
+function getEvents() {
+
+}

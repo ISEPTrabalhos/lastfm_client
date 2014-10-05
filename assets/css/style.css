@@ -26,18 +26,26 @@ body {
 #content #controlls #artistName,
 #content #controlls #selectTopTag,
 #content #controlls #topTrackLimit,
-#content table .button{
+#content table #eventName {
     width: 90%;
     height: 30px;
     margin: 0 auto;
 
     display:block;
-    margin:0 auto;
 
     font-size: 20pt;
     padding: 5px 10px 5px 10px;
     border-radius: 5px;
+}
 
+#content table .button {
+    height: 40px;
+    border-radius: 5px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px 10px 5px 10px;
+    font-size: 14pt;
+    font-weight: bold;
 }
 
 #content #controlls #topTrackLimit {width: 40%; text-align: center; font-size: 15pt;}
