@@ -25,7 +25,8 @@ body {
 
 #content #controlls #artistName,
 #content #controlls #selectTopTag,
-#content #controlls #topTrackLimit{
+#content #controlls #topTrackLimit,
+#content table .button{
     width: 90%;
     height: 30px;
     margin: 0 auto;

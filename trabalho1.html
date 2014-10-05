@@ -10,6 +10,7 @@
         <!-- LOAD JS SCRIPTS -->
         <script type="text/javascript" src="assets/js/ajax.js"></script>
         <script type="text/javascript" src="assets/js/lastfm.js"></script>
+        <script type="text/javascript" src="assets/js/homepage.js"></script>
 
     </head>
     <body>
@@ -24,14 +25,27 @@
 
                 <table border="0" width="100%" id="controlls">
                     <tr>
-                        <th width="65%">Artist name</th>
+                        <th width="60%">Artist name</th>
                         <th width="20%">Tag list</th>
                         <th width="15%">Nº Results</th>
+                        <th width="5%"></th>
                     </tr>
                     <tr>
                         <td><input id="artistName" onkeyup="getArtistTopTags()" /></td>
                         <td><select id="selectTopTag"><option value="--">--</option></select></td>
-                        <td><input type="text" id="topTrackLimit" value="5"></td>
+                        <td><input type="text" id="topTrackLimit" value="5" /></td>
+                        <td><input type="text" class="button" value="+" onclick="changeSearchTextField();" style="cursor: pointer;" disabled /></td>
+                    </tr>
+                </table>
+
+                <table border="0" width="100%" id="eventtable" style="display: none;">
+                    <tr>
+                        <th width="95%">Artist name</th>
+                        <th width="5%"></th>
+                    </tr>
+                    <tr>
+                        <td><input id="eventName" placeholder="Event name" onkeyup="getEvents();" /></td>
+                        <td><input type="text" class="button" value="+" onclick="changeSearchTextField();" style="cursor: pointer;" disabled /></td>
                     </tr>
                 </table>
 
