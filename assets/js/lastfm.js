@@ -83,7 +83,22 @@ function getMoreInfo(artistName, trackName) {
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
         var image = document.createElement("img");
-        image.src = response.artist.image[2]["#text"]
+        image.src = response.artist.image[2]["#text"];
         divTooltip.appendChild(image);
+    }), "GET";
+    // get artist top 3 albums artist
+    url = "assets/php/lastfm.php?func=getArtistTop3Albums&artist=" + artistName + "&format=json";
+    sendRequest(url, function(xmlHttpObj) {
+        var response = JSON.parse(xmlHttpObj.responseText);
+        var p = document.createElement("p");
+        p.innerHTML += "Top 3 albums: ";
+        for(var i=0; i < 3; i++) {
+            alert("FOR !!");
+            p.innerHTML += response.topalbums.album[i].name;
+            if(i==0 || i==1) {
+                p.innerHTML += ", ";
+            }
+        }
+        divTooltip.appendChild(p);
     }), "GET";
 }
