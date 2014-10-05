@@ -23,9 +23,12 @@ function getEvents() {
     //send ajax request
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
-        response.innerHTML = "";
+
+        var lim = 3;
+        var startOn = 0;
 
         if(typeof response.events != 'undefined') {
+            result.innerHTML = "";
             response.events.event.forEach(function(obj){
                 var article = document.createElement("article");
                 var title = document.createElement("h2");
@@ -61,11 +64,11 @@ function getEvents() {
                 start.innerHTML = obj.startDate;
                 description.innerHTML = obj.description;
                 image.src = obj.image[obj.image.length - 1]["#text"];
-                image.alt = "photoh";
+                image.alt = "ImageShow";
 
                 result.appendChild(article);
                 article.appendChild(title);
-                article.appendChild(image);
+                if(obj.image[obj.image.length - 1]["#text"] != '') article.appendChild(image);
                 article.appendChild(artist);
                 article.appendChild(location);
                 article.appendChild(start);
@@ -73,22 +76,5 @@ function getEvents() {
                 article.appendChild(description);
             });
         }
-        /*var divTagTopTracks = document.getElementById("divTagTopTracks");
-        divTagTopTracks.innerHTML="";
-        var table = document.createElement("table");
-        for (var i = 0; i < topTracks.length; i++) {
-            //getMoreInfo(topTracks[i].artist.name, topTracks[i].name);
-            var tr = document.createElement("tr");
-            var td = document.createElement("td");
-            var a = document.createElement("a");
-            var text = document.createTextNode(topTracks[i].name);
-            a.appendChild(text);
-            var method = "getMoreInfo("+'"'+topTracks[i].artist.name+'"'+","+'"'+topTracks[i].name+'"'+")";
-            a.href="javascript:"+method+";";
-            td.appendChild(a);
-            tr.appendChild(td);
-            table.appendChild(tr);
-        }
-        divTagTopTracks.appendChild(table);*/
     }), "GET";
 }
