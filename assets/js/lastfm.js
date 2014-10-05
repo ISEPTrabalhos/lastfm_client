@@ -43,16 +43,15 @@ function getTopTracksTag() {
         divTagTopTracks.innerHTML="";
         var table = document.createElement("table");
         for (var i = 0; i < topTracks.length; i++) {
-            getMoreInfo(topTracks[i].artist.name, topTracks[i].name);
+            //getMoreInfo(topTracks[i].artist.name, topTracks[i].name);
             var tr = document.createElement("tr");
             var td = document.createElement("td");
             var a = document.createElement("a");
             var text = document.createTextNode(topTracks[i].name);
             a.appendChild(text);
             //a.href = topTracks[i].url;
-            a.href="#";
-            //a.onclick = getMoreInfo(topTracks[i].artist.name, topTracks[i].name);
-                //getMoreInfo(topTracks[i].artist.name, topTracks[i].name);
+            var method = "getMoreInfo("+'"'+topTracks[i].artist.name+'"'+","+'"'+topTracks[i].name+'"'+")";
+            a.href="javascript:"+method+";";
             td.appendChild(a);
             tr.appendChild(td);
             table.appendChild(tr);
@@ -61,18 +60,30 @@ function getTopTracksTag() {
     }), "GET";
 }
 
-function getMoreInfo(artistName, trackNmame) {
-    alert("HERE");
-    var divTeste = document.getElementById("divTesteToolTip");
-    var url = "assets/php/lastfm.php?func=getTrackInfo&track=" + trackNmame + "&artist=" + artistName + "&format=json";
-    url = url.replace(/ /g, "%20");
-    divTeste.innerHTML += url +"</br>";
+function getMoreInfo(artistName, trackName) {
+    //alert("HERE");
+    var divTooltip = document.getElementById("divToolTip");
+    divTooltip.innerHTML = "";
+    artistName = artistName.replace(/ /g, "%20");
+    trackName = trackName.replace(/ /g, "%20");
+    // get album name
+    var url = "assets/php/lastfm.php?func=getTrackInfo&track=" + trackName + "&artist=" + artistName + "&format=json";
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
-        console.log(response);
-        divTeste.innerHTML += artistName; // responde.track.artist.name;
-        divTeste.innerHTML += "--> " + response.track.album.title;
-
+        //console.log(response);
+        var p = document.createElement("p");
+        p.innerHTML += "Artist Name: " + response.track.artist.name;
+        divTooltip.appendChild(p);
+        var p2 = document.createElement("p");
+        p2.innerHTML += "Album Name " + response.track.album.title;
+        divTooltip.appendChild(p2);
     }), "GET";
-
+    // get artist image
+    url = "assets/php/lastfm.php?func=getArtistImage&artist=" + artistName + "&format=json";
+    sendRequest(url, function(xmlHttpObj) {
+        var response = JSON.parse(xmlHttpObj.responseText);
+        var image = document.createElement("img");
+        image.src = response.artist.image[2]["#text"]
+        divTooltip.appendChild(image);
+    }), "GET";
 }

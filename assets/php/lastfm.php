@@ -20,9 +20,22 @@
         case 'getAlbumCover':
             getAlbumCover();
             break;
+        case 'getArtistImage':
+            getArtistImage();
+            break;
         default:
             break;
     }
+
+function getArtistImage() {
+    global $api_url;
+    global $api_key;
+    $artist = $_GET["artist"];
+    $artist = str_replace(' ', "%20", $artist);
+    $response = file_get_contents($api_url . 'artist.getInfo&artist=' . $artist . '&api_key='. $api_key .'&format=json');
+    echo $response;
+}
+
 
 function getTrackInfo() {
         global $api_url;
