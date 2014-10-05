@@ -59,14 +59,14 @@ body {
     border: 1px solid #ccc;
 }
 
-#content #divTagTopTracks {
+#content .results{
     width: 90%;
     margin: 10px auto;
 }
 
-#content #divTagTopTracks table {width: 100%;}
+#content .results table  {width: 100%;}
 
-#content #divTagTopTracks table tr{
+#content .results table tr {
     display: block;
 
     background-color: #3d3d3d;
@@ -78,14 +78,14 @@ body {
     font-size: 14pt;
 }
 
-#content #divTagTopTracks table tr a,
-#content #divTagTopTracks table tr a:link {
+#content .results table tr a,
+#content .results table tr a:link {
     text-decoration: none;
     color: inherit;
 }
 
-#content #divTagTopTracks table tr:hover a {color: #000;}
-#content #divTagTopTracks table tr:hover {background-color: #d4d4d4;}
+#content .results table tr:hover a {color: #000;}
+#content .results table tr:hover {background-color: #d4d4d4;}
 
 #headerTop {
     position: fixed;
