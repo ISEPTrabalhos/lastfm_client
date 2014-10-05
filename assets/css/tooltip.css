@@ -1,10 +1,10 @@
 #divToolTip {
     width: 700px;
+    margin: 0 auto;
     height: 200px;
     background: rgba(0,0,0,0.7);
     border: 1px solid black;
     border-radius: 3px;
-    display: none;
 }
 #divToolTip div {
     float: left;
