@@ -1,5 +1,5 @@
 article {
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.5);
     border-radius: 5px;
     color: #fff;
     width: 95%;
@@ -30,12 +30,13 @@ article a:link {
 
 .numBt {
     width: 250px;
-    font-size: 30pt;
+    height: 45px;
+    font-size: 15pt;
     font-weight: bold;
     color: #fff;
-    background-color: #000;
+    background-color: rgba(0,0,0,0.6);
     border-radius: 6px;
-    border: 1px solid #202020;
+    border: 1px solid #161616;
 
     cursor: pointer;
 }

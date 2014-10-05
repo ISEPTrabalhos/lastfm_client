@@ -3,27 +3,21 @@ CREATE TABLE IF NOT EXISTS `logtracks` (
   `request` text NOT NULL,
   `response` text NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `logtag` (
   `id` int(11) NOT NULL,
   `request` text NOT NULL,
   `response` text NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-INSERT INTO `logtracks` (`id`, `request`, `response`, `timestamp`) VALUES
-(1, 'http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag=dance&limit=5&api_key=e85bfd5e26e0e91b53160653d86ba063&format=json', '{"toptracks":{"track":[{"name":"Hideaway","duration":"252","mbid":"2a0aa168-1e16-4c85-8f63-899ed2790884","url":"http://www.last.fm/music/Kiesza/_/Hideaway","streamable":{"#text":"0","fulltrack":"0"},"artist":{"name":"Kiesza","mbid":"87ff5ccd-64cd-45d6-bba3-ba2647e85d74","url":"http://www.last.fm/music/Kiesza"},"image":[{"#text":"http://userserve-ak.last.fm/serve/34s/100483465.png","size":"small"},{"#text":"http://userserve-ak.last.fm/serve/64s/100483465.png","size":"medium"},{"#text":"http://userserve-ak.last.fm/serve/126/100483465.png","size":"large"},{"#text":"http://userserve-ak.last.fm/serve/300x300/100483465.png","size":"extralarge"}],"@attr":{"rank":"1"}},{"name":"Lovers on the Sun (feat. Sam Martin)","duration":"19","mbid":"","url":"http://www.last.fm/music/David+Guetta/_/Lovers+on+the+Sun+(feat.+Sam+Martin)","streamable":{"#text":"0","fulltrack":"0"},"artist":{"name":"David Guetta","mbid":"1bb1eec6-88c3-4028-8920-a985c4b9081a","url":"http://www.last.fm/music/David+Guetta"},"@attr":{"rank":"2"}},{"name":"Summer","duration":"224","mbid":"fb6384c8-41ca-4130-a56b-8d942c5cadd9","url":"http://www.last.fm/music/Calvin+Harris/_/Summer","streamable":{"#text":"0","fulltrack":"0"},"artist":{"name":"Calvin Harris","mbid":"8dd98bdc-80ec-4e93-8509-2f46bafc09a7","url":"http://www.last.fm/music/Calvin+Harris"},"image":[{"#text":"http://userserve-ak.last.fm/serve/34s/97561221.png","size":"small"},{"#text":"http://userserve-ak.last.fm/serve/64s/97561221.png","size":"medium"},{"#text":"http://userserve-ak.last.fm/serve/126/97561221.png","size":"large"},{"#text":"http://userserve-ak.last.fm/serve/300x300/97561221.png","size":"extralarge"}],"@attr":{"rank":"3"}},{"name":"Wake Me Up","duration":"255","mbid":"5637da86-5902-4fff-8e3f-8bb7040dafe6","url":"http://www.last.fm/music/Avicii/_/Wake+Me+Up","streamable":{"#text":"0","fulltrack":"0"},"artist":{"name":"Avicii","mbid":"24b930c0-5f27-4723-a5aa-3b8b830fb914","url":"http://www.last.fm/music/Avicii"},"image":[{"#text":"http://userserve-ak.last.fm/serve/34s/93069463.png","size":"small"},{"#text":"http://userserve-ak.last.fm/serve/64s/93069463.png","size":"medium"},{"#text":"http://userserve-ak.last.fm/serve/126/93069463.png","size":"large"},{"#text":"http://userserve-ak.last.fm/serve/300x300/93069463.png","size":"extralarge"}],"@attr":{"rank":"4"}},{"name":"Blame","duration":"200","mbid":"","url":"http://www.last.fm/music/Calvin+Harris/_/Blame","streamable":{"#text":"0","fulltrack":"0"},"artist":{"name":"Calvin Harris","mbid":"8dd98bdc-80ec-4e93-8509-2f46bafc09a7","url":"http://www.last.fm/music/Calvin+Harris"},"@attr":{"rank":"5"}}],"@attr":{"tag":"dance","page":"1","perPage":"5","totalPages":"200","total":"1000"}}}\n', '2014-10-04 16:57:01'),
-(2, 'http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag=rock&limit=5&api_key=e85bfd5e26e0e91b53160653d86ba063&format=json', '{"toptracks":{"track":[{"name":"The Miracle (Of Joey Ramone)","duration":"255","mbid":"bae25e1d-a906-4906-85ee-6131d96ac08f","url":"http://www.last.fm/music/U2/_/The+Miracle+(Of+Joey+Ramone)","streamable":{"#text":"0","fulltrack":"0"},"artist":{"name":"U2","mbid":"704acdbb-1415-4782-b0b6-0596b8c55e46","url":"http://www.last.fm/music/U2"},"image":[{"#text":"http://userserve-ak.last.fm/serve/34s/101251605.png","size":"small"},{"#text":"http://userserve-ak.last.fm/serve/64s/101251605.png","size":"medium"},{"#text":"http://userserve-ak.last.fm/serve/126/101251605.png","size":"large"},{"#text":"http://userserve-ak.last.fm/serve/300x300/101251605.png","size":"extralarge"}],"@attr":{"rank":"1"}},{"name":"Radioactive","duration":"276","mbid":"053a2b3a-d235-46c6-bab7-506b31e4af84","url":"http://www.last.fm/music/Imagine+Dragons/_/Radioactive","streamable":{"#text":"0","fulltrack":"0"},"artist":{"name":"Imagine Dragons","mbid":"012151a8-0f9a-44c9-997f-ebd68b5389f9","url":"http://www.last.fm/music/Imagine+Dragons"},"image":[{"#text":"http://userserve-ak.last.fm/serve/34s/98394887.png","size":"small"},{"#text":"http://userserve-ak.last.fm/serve/64s/98394887.png","size":"medium"},{"#text":"http://userserve-ak.last.fm/serve/126/98394887.png","size":"large"},{"#text":"http://userserve-ak.last.fm/serve/300x300/98394887.png","size":"extralarge"}],"@attr":{"rank":"2"}},{"name":"Californication","duration":"321","mbid":"e0eede16-4ac4-465e-8da0-a62719b6d047","url":"http://www.last.fm/music/Red+Hot+Chili+Peppers/_/Californication","streamable":{"#text":"0","fulltrack":"0"},"artist":{"name":"Red Hot Chili Peppers","mbid":"8bfac288-ccc5-448d-9573-c33ea2aa5c30","url":"http://www.last.fm/music/Red+Hot+Chili+Peppers"},"image":[{"#text":"http://userserve-ak.last.fm/serve/34s/42739473.png","size":"small"},{"#text":"http://userserve-ak.last.fm/serve/64s/42739473.png","size":"medium"},{"#text":"http://userserve-ak.last.fm/serve/126/42739473.png","size":"large"},{"#text":"http://userserve-ak.last.fm/serve/300x300/42739473.png","size":"extralarge"}],"@attr":{"rank":"3"}},{"name":"Seven Nation Army","duration":"230","mbid":"0899cca7-d0f0-45df-8f5e-bb23b54b8c1e","url":"http://www.last.fm/music/The+White+Stripes/_/Seven+Nation+Army","streamable":{"#text":"0","fulltrack":"0"},"artist":{"name":"The White Stripes","mbid":"11ae9fbb-f3d7-4a47-936f-4c0a04d3b3b5","url":"http://www.last.fm/music/The+White+Stripes"},"image":[{"#text":"http://userserve-ak.last.fm/serve/34s/50892057.png","size":"small"},{"#text":"http://userserve-ak.last.fm/serve/64s/50892057.png","size":"medium"},{"#text":"http://userserve-ak.last.fm/serve/126/50892057.png","size":"large"},{"#text":"http://userserve-ak.last.fm/serve/300x300/50892057.png","size":"extralarge"}],"@attr":{"rank":"4"}},{"name":"Counting Stars","duration":"258","mbid":"97915f31-63bc-4332-8737-60a11432e10e","url":"http://www.last.fm/music/OneRepublic/_/Counting+Stars","streamable":{"#text":"0","fulltrack":"0"},"artist":{"name":"OneRepublic","mbid":"8aafd46e-f5d3-4923-8da1-43c0a296947f","url":"http://www.last.fm/music/OneRepublic"},"image":[{"#text":"http://userserve-ak.last.fm/serve/34s/87338269.png","size":"small"},{"#text":"http://userserve-ak.last.fm/serve/64s/87338269.png","size":"medium"},{"#text":"http://userserve-ak.last.fm/serve/126/87338269.png","size":"large"},{"#text":"http://userserve-ak.last.fm/serve/300x300/87338269.png","size":"extralarge"}],"@attr":{"rank":"5"}}],"@attr":{"tag":"rock","page":"1","perPage":"5","totalPages":"200","total":"1000"}}}\n', '2014-10-04 16:57:39');
-
-INSERT INTO `logtag` (`id`, `request`, `response`, `timestamp`) VALUES
-(1, 'http://ws.audioscrobbler.com/2.0/?method=artist.gettoptags&artist=cher&api_key=e85bfd5e26e0e91b53160653d86ba063', 'pop;female vocalists;80s;dance;rock;cher;diva;70s;90s;female;', '2014-10-04 16:39:43'),
-(2, 'http://ws.audioscrobbler.com/2.0/?method=artist.gettoptags&artist=a&api_key=e85bfd5e26e0e91b53160653d86ba063', 'rock;alternative rock;punk rock;alternative;punk;british;metal;pop punk;indie;emo;', '2014-10-04 16:49:58'),
-(3, 'http://ws.audioscrobbler.com/2.0/?method=artist.gettoptags&artist=&api_key=e85bfd5e26e0e91b53160653d86ba063', ';;;;;;;;;;', '2014-10-04 16:49:58'),
-(4, 'http://ws.audioscrobbler.com/2.0/?method=artist.gettoptags&artist=c&api_key=e85bfd5e26e0e91b53160653d86ba063', 'post-rock;Czech;math rock;silver rocket;instrumental;indie;v;kansas;braindance;bad tagged;', '2014-10-04 16:49:59'),
-(5, 'http://ws.audioscrobbler.com/2.0/?method=artist.gettoptags&artist=che&api_key=e85bfd5e26e0e91b53160653d86ba063', 'Stoner Rock;desert rock;stoner;funk;alternative rock;alternative;Psych stoner chill rock;rock;exotica;stoner metal;', '2014-10-04 16:50:00'),
-(6, 'http://ws.audioscrobbler.com/2.0/?method=artist.gettoptags&artist=ch&api_key=e85bfd5e26e0e91b53160653d86ba063', 'japanese;Soundtrack;video game music;switzerland;female vocalists;f-zero;rocktronic;Punk Colombia;seen live;;', '2014-10-04 16:51:41'),
-(7, 'http://ws.audioscrobbler.com/2.0/?method=artist.gettoptags&artist=avril&api_key=e85bfd5e26e0e91b53160653d86ba063', 'electronic;trip-hop;french;electro;electronica;experimental;Electro Pop;indie;Avril;All;', '2014-10-04 17:13:43');
+CREATE TABLE IF NOT EXISTS `logevent` (
+  `id` int(11) NOT NULL,
+  `request` text NOT NULL,
+  `response` text NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 ALTER TABLE `logtracks`
  ADD PRIMARY KEY (`id`);
@@ -31,8 +25,14 @@ ALTER TABLE `logtracks`
 ALTER TABLE `logtag`
  ADD PRIMARY KEY (`id`);
 
+ALTER TABLE `logevent`
+ ADD PRIMARY KEY (`id`);
+
 ALTER TABLE `logtracks`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 
 ALTER TABLE `logtag`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+
+ALTER TABLE `logevent`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;

@@ -147,6 +147,7 @@ function getArtistTopTags() {
     function getEventsAt($location = 'Porto', $distance = '10', $page = '1', $limit = '3') {
         global $api_url;
         global $api_key;
+        global $db;
 
         $location = preg_replace('/\s+/', '%20', $location);
 
@@ -154,5 +155,14 @@ function getArtistTopTags() {
         $url = $api_url . 'geo.getEvents&location=' . $location . '&distance=' . $distance . '&limit=' . $limit . '&page=' . $page . '&api_key=' . $api_key . '&format=json';
 
         $response = file_get_contents($url);
+
+        // save data into DB
+        $select = "SELECT * FROM logevent WHERE request = '{$url}'";
+        $db->select($select);
+        if($db->getNumElem() == 0){
+            $query = "INSERT INTO logevent (id, request, response) VALUES (NULL, '{$url}', '{$response}');";
+            $db->insert($query);
+        }
+
         echo $response;
     }
