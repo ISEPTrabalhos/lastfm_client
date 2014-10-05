@@ -70,7 +70,6 @@ function getMoreInfo(artistName, trackName) {
     var url = "assets/php/lastfm.php?func=getTrackInfo&track=" + trackName + "&artist=" + artistName + "&format=json";
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
-        //console.log(response);
         var p = document.createElement("p");
         p.innerHTML += "Artist Name: " + response.track.artist.name;
         divTooltip.appendChild(p);
@@ -93,12 +92,19 @@ function getMoreInfo(artistName, trackName) {
         var p = document.createElement("p");
         p.innerHTML += "Top 3 albums: ";
         for(var i=0; i < 3; i++) {
-            alert("FOR !!");
             p.innerHTML += response.topalbums.album[i].name;
             if(i==0 || i==1) {
                 p.innerHTML += ", ";
             }
         }
+        divTooltip.appendChild(p);
+    }), "GET";
+    // get artist toptrack
+    url = "assets/php/lastfm.php?func=getArtistTopTrack&artist=" + artistName + "&format=json";
+    sendRequest(url, function(xmlHttpObj) {
+        var response = JSON.parse(xmlHttpObj.responseText);
+        var p = document.createElement("p");
+        p.innerHTML += "Top Track: " + response.toptracks.track[0].name;
         divTooltip.appendChild(p);
     }), "GET";
 }

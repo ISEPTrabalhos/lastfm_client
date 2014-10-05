@@ -26,9 +26,22 @@
         case 'getArtistTop3Albums':
             getArtistTop3Albums();
             break;
+        case 'getArtistTopTrack':
+            getArtistTopTrack();
+            break;
         default:
             break;
     }
+
+function getArtistTopTrack() {
+    global $api_url;
+    global $api_key;
+    $artist = $_GET["artist"];
+    $artist = str_replace(' ', "%20", $artist);
+    $response = file_get_contents($api_url . 'artist.getTopTracks&artist=' . $artist . '&api_key='. $api_key .'&format=json');
+    echo $response;
+}
+
 
 function getArtistTop3Albums() {
     global $api_url;
