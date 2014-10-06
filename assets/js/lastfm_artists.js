@@ -52,6 +52,8 @@ function getTopTracksTag() {
             var text = document.createTextNode(topTracks[i].name);
             a.appendChild(text);
             // call method to get more info of selected track
+            // var m = "getMoreInfo("+'"'+topTracks[i].artist.name+'"'+","+'"'+topTracks[i].name+'"'+",";
+            //var method = m + td + ")";
             var method = "getMoreInfo("+'"'+topTracks[i].artist.name+'"'+","+'"'+topTracks[i].name+'"'+")";
             a.href="javascript:"+method+";";
             td.appendChild(a);
@@ -131,7 +133,7 @@ function getMoreInfo(artistName, trackName) {
     divToolTip.appendChild(divImages);
 
     divToolTip.style.display = "block";
-    //document.getElementById("body").appendChild(divToolTip);
+    document.getElementsByTagName("body")[0].appendChild(divToolTip);
 }
 
 function getAlbumName(artistName,trackName) {
