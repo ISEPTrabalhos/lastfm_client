@@ -42,3 +42,4 @@ Thumbs.db
 *.css.map
 
 # ignore files
+config.ini
