@@ -1,7 +1,7 @@
 <?php
     require_once 'LastfmController.php';
 
-    $data = parse_ini_file("../config.ini", true);
+    $data = parse_ini_file("../../config.ini", true);
 
     $lastFM = new LastfmController(
         $data['mysql']['hostname'], // localhost
