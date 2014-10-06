@@ -106,10 +106,12 @@ class LastfmController {
         }
 
         // save data into DB
-        $select = "SELECT * FROM logtag WHERE request = '{$url}'";
+        $args[0] = mysql_real_escape_string($url);
+        $args[1] = mysql_real_escape_string($tags);
+        $select = "SELECT * FROM logtag WHERE request = '{$args[0]}'";
         $this->_db->select($select);
         if($this->_db->getNumElem() == 0){
-            $query = "INSERT INTO logtag (id, request, response) VALUES (NULL, '{$url}', '{$tags}');";
+            $query = "INSERT INTO logtag (id, request, response) VALUES (NULL, '{$args[0]}', '{$args[1]}');";
             $this->_db->insert($query);
         }
 
@@ -132,10 +134,12 @@ class LastfmController {
         $response = file_get_contents($url);
 
         // save data into DB
-        $select = "SELECT * FROM logtracks WHERE request LIKE '{$url}' AND response LIKE '{$response}'";
+        $args[0] = mysql_real_escape_string($url);
+        $args[1] = mysql_real_escape_string($response);
+        $select = "SELECT * FROM logtracks WHERE request LIKE '{$args[0]}' AND response LIKE '{$args[1]}'";
         $this->_db->select($select);
         if($this->_db->getNumElem() == 0){
-            $query = "INSERT INTO logtracks (id, request, response) VALUES (NULL, '{$url}', '{$response}');";
+            $query = "INSERT INTO logtracks (id, request, response) VALUES (NULL, '{$args[0]}', '{$args[1]}');";
             $this->_db->insert($query);
         }
 
@@ -182,10 +186,12 @@ class LastfmController {
         $response = file_get_contents($url);
 
         // save data into DB
-        $select = "SELECT * FROM logevent WHERE request = '{$url}'";
+        $args[0] = mysql_real_escape_string($url);
+        $args[1] = mysql_real_escape_string($response);
+        $select = "SELECT * FROM logevent WHERE request = '{$args[0]}'";
         $this->_db->select($select);
         if($this->_db->getNumElem() == 0){
-            $query = "INSERT INTO logevent (id, request, response) VALUES (NULL, '{$url}', '{$response}');";
+            $query = "INSERT INTO logevent (id, request, response) VALUES (NULL, '{$args[0]}', '{$args[1]}');";
             $this->_db->insert($query);
         }
 
