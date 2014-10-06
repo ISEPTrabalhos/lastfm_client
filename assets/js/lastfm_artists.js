@@ -64,25 +64,16 @@ function getTopTracksTag() {
 
 //Function that  get's via AJaX a list of info of selected track
 function getMoreInfo(artistName, trackName) {
-    //divTooltip = document.getElementById("divToolTip");
     var artistNamNoSpaces = artistName;
     artistName = artistName.replace(/ /g, "%20");
     // get album name
     var albumName = getAlbumName(artistName,trackName);
-    //alert(artistNamNoSpaces + " - " + albumName);
     // get artist image
     var src = getArtistImage(artistName);
-    //alert(src);
     // get artist top 3 albums artist
     var top3a = getTop3Albums(artistName);
-    //alert(top3a);
     // get artist tt
     var tt = getArtistTopTrack(artistName);
-    //alert(tt);
-    //show div
-    //divTooltip.style.display = "block";
-    //divTooltip.style.left = "50px";
-    //divTooltip.style.top = "321px";
 
     // CREATE AND DISPLAY DIV
     var divToolTip = document.createElement("div");
