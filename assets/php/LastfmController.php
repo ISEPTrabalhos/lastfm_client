@@ -52,9 +52,8 @@ class LastfmController {
 
         $newXML->loadXML($responseXML);
         $nodelist = $newXML->getElementsByTagName("name");
-
         $tags = "";
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < $nodelist->length; $i++) {
             $tagNode = $nodelist->item($i);
             $tagValue = $tagNode->nodeValue;
             $tags .= $tagValue . ";";
