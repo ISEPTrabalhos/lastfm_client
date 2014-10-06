@@ -61,29 +61,33 @@ function getTopTracksTag() {
         divTagTopTracks.appendChild(table);
     }, "GET");
 }
-var albumName = "";
+
 //Function that  get's via AJaX a list of info of selected track
 function getMoreInfo(artistName, trackName) {
     divTooltip = document.getElementById("divToolTip");
     var artistNamNoSpaces = artistName;
     artistName = artistName.replace(/ /g, "%20");
-    // set album name
-    setAlbumName(artistName,trackName);
-     alert(artistNamNoSpaces + " - " + albumName);
-    // set artist image
-    //setArtistImage(artistName);
-    // set artist top 3 albums artist
-    //setTop3Albums(artistName);
-    // set artist toptrack
-    //setArtistTopTrack(artistName);
+    // get album name
+    var albumName = getAlbumName(artistName,trackName);
+    //alert(artistNamNoSpaces + " - " + albumName);
+    // get artist image
+    var image = getArtistImage(artistName);
+    //alert(image);
+    // get artist top 3 albums artist
+    var top3a = getTop3Albums(artistName);
+    //alert(top3a);
+    // get artist toptrack
+    var tt = getArtistTopTrack(artistName);
+    //alert(tt);
     //show div
     //divTooltip.style.display = "block";
     //divTooltip.style.left = "50px";
     //divTooltip.style.top = "321px";
 }
 
-function setAlbumName(artistName,trackName) {
+function getAlbumName(artistName,trackName) {
     trackName = trackName.replace(/ /g, "%20");
+    var albumName = "";
     var url = "assets/php/ajaxRequest.php?func=getTrackInfo&track=" + trackName + "&artist=" + artistName + "&format=json";
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
@@ -93,38 +97,48 @@ function setAlbumName(artistName,trackName) {
         //abname.innerHTML = response.track.album.title;
         albumName = response.track.album.title;
     }, "GET",false);
-    //return albumName;
+    return albumName;
 }
 
-function setArtistImage(artistName) {
+function getArtistImage(artistName) {
     var url = "assets/php/ajaxRequest.php?func=getArtistImage&artist=" + artistName + "&format=json";
+    var src = "";
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
         var image = document.getElementById("atimage");
-        image.src = response.artist.image[2]["#text"];
+        //image.src = response.artist.image[2]["#text"];
+        src = response.artist.image[2]["#text"];
     }, "GET",false);
+    return src;
 }
 
-function setTop3Albums(artistName) {
-    url = "assets/php/ajaxRequest.php?func=getArtistTop3Albums&artist=" + artistName + "&format=json";
+function getTop3Albums(artistName) {
+    var url = "assets/php/ajaxRequest.php?func=getArtistTop3Albums&artist=" + artistName + "&format=json";
+    var top3a = "";
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
         var top3ab = document.getElementById("top3ab");
         top3ab.innerHTML = "";
         for(var i=0; i < 3; i++) {
-            top3ab.innerHTML += response.topalbums.album[i].name;
+            //top3ab.innerHTML += response.topalbums.album[i].name;
+            top3a += response.topalbums.album[i].name;
             if(i==0 || i==1) {
-                top3ab.innerHTML += ", ";
+               // top3ab.innerHTML += ", ";
+                top3a+= ", ";
             }
         }
     }, "GET",false);
+    return top3a;
 }
 
-function setArtistTopTrack(artistName) {
-    url = "assets/php/ajaxRequest.php?func=getArtistTopTrack&artist=" + artistName + "&format=json";
+function getArtistTopTrack(artistName) {
+    var url = "assets/php/ajaxRequest.php?func=getArtistTopTrack&artist=" + artistName + "&format=json";
+    var track = "";
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
-        var toptrack = document.getElementById("toptrack");
-        toptrack.innerHTML = response.toptracks.track[0].name;
+        //var toptrack = document.getElementById("toptrack");
+        //toptrack.innerHTML = response.toptracks.track[0].name;
+        track = response.toptracks.track[0].name;
     }, "GET",false);
+    return track;
 }
