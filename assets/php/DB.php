@@ -13,7 +13,7 @@ class DB {
         $this->_info['db_password'] = $db_password;
 
         try{
-            // Start connects and chose the DB
+            // Start connects and chose the DB | @ to supress warning's and error's
             $this->_connection = @mysql_connect($db_hostname, $db_username, $db_password);
             if(!$this->_connection) throw new Exception("");
 
@@ -22,6 +22,14 @@ class DB {
         }catch(Exception $e){echo $e->getMessage();}
     }
 
+    /**
+     * select
+     *
+     * Select something from DB
+     *
+     * @param $query string sql to DB execute
+     * @return bool false if it go wrong
+     */
     public function select($query) {
         if(!$this->_enable) return;
         try {
@@ -43,6 +51,14 @@ class DB {
         }
     }
 
+    /**
+     * insert
+     *
+     * insert something in to DB
+     *
+     * @param $query string sql to DB execute
+     * @return bool false if it go wrong
+     */
     public function insert($query) {
         if(!$this->_enable) return;
         try {
@@ -55,22 +71,42 @@ class DB {
         }
     }
 
+    /**
+     * getResults
+     *
+     * @return array data from the datagase
+     */
     public function getResults() {
         if(!$this->_enable) return;
         return (isset($this->_result)) ? $this->_result : null;
     }
 
+    /**
+     * getFirst
+     *
+     * @return object first row from DB
+     */
     public function getFirst() {
         if(!$this->_enable) return;
         $var = (isset($this->_result)) ? $this->_result[0] : null;
         return $var;
     }
 
+    /**
+     * getNumElem
+     *
+     * @return int number of row's returned from DB
+     */
     public function getNumElem(){
         if(!$this->_enable) return;
         return (isset($this->_num)) ? $this->_num : 0;
     }
 
+    /**
+     * endConnection
+     *
+     * end connection to DB
+     */
     public function endConnection(){
         if(!$this->_enable) return;
         mysql_close();

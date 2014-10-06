@@ -1,15 +1,31 @@
 <?php
 require_once 'DB.php';
 
-class LastfmController {
-    private $_api_key = "e85bfd5e26e0e91b53160653d86ba063";
-    private $_api_url = "http://ws.audioscrobbler.com/2.0/?method=";
-    private $_db;
 
-    public function __construct($db_hostname, $db_database, $db_username, $db_password) {
-       $this->_db = new DB($db_hostname, $db_database, $db_username, $db_password);
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Class to handle the call's to the LastFM API
+ * * * * * * * * * * * * * * * * * * * * * * * * * * */
+class LastfmController {
+    private $_api_key; // API primary key
+    private $_api_url;
+    private $_db; // connection to our DB
+
+    public function __construct($db_hostname, $db_database, $db_username, $db_password, $api_key) {
+        /* Create the DB connection to store the log of query's to the lastFM API */
+        $this->_db = new DB($db_hostname, $db_database, $db_username, $db_password);
+
+        $this->_api_key = $api_key;
+        $this->_api_url = "http://ws.audioscrobbler.com/2.0/?method=";
     }
 
+    /**
+     * getArtistTopTrack
+     *
+     * Get the list of tracks of one artist
+     *
+     * @param $get array it's the $_GET global var from the request environment
+     * @return string in json of the results
+     */
     public function getArtistTopTrack($get) {
         $artist = $get["artist"];
         $artist = str_replace(' ', "%20", $artist);
@@ -17,7 +33,14 @@ class LastfmController {
         return $response;
     }
 
-
+    /**
+     * getArtistTop3Albums
+     *
+     * Get the 3 top albuns of one artist
+     *
+     * @param $get array it's the $_GET global var from the request environment
+     * @return string in json of the results
+     */
     public function getArtistTop3Albums($get) {
         $artist = $get["artist"];
         $artist = str_replace(' ', "%20", $artist);
@@ -25,6 +48,14 @@ class LastfmController {
         return $response;
     }
 
+    /**
+     * getArtistImage
+     *
+     * Get the picture of one artist
+     *
+     * @param $get array it's the $_GET global var from the request environment
+     * @return string in json of the results
+     */
     public function getArtistImage($get) {
         $artist = $get["artist"];
         $artist = str_replace(' ', "%20", $artist);
@@ -32,7 +63,14 @@ class LastfmController {
         return $response;
     }
 
-
+    /**
+     * getTrackInfo
+     *
+     * Get a lot of info about one single album
+     *
+     * @param $get array it's the $_GET global var from the request environment
+     * @return string in json of the results
+     */
     public function getTrackInfo($get) {
         $artist = $get["artist"];
         $artist = str_replace(' ', "%20", $artist);
@@ -42,6 +80,14 @@ class LastfmController {
         return $response;
     }
 
+    /**
+     * getArtistTopTrack
+     *
+     * Get all the top tag's from one artist
+     *
+     * @param $get array it's the $_GET global var from the request environment
+     * @return string of all tag's separated by ,
+     */
     public function getArtistTopTags($get) {
         $artist = $get["artist"];
         $artist = str_replace(' ', "%20", $artist);
@@ -71,6 +117,14 @@ class LastfmController {
         return $tags;
     }
 
+    /**
+     * getTopTracksTag
+     *
+     * Get one list of track's based on the tag sent
+     *
+     * @param $get array it's the $_GET global var from the request environment
+     * @return string in json of the results
+     */
     public function getTopTracksTag($get) {
         $tag = $get["tag"];
         $tag = str_replace(' ', "%20", $tag);
@@ -89,6 +143,14 @@ class LastfmController {
         return $response;
     }
 
+    /**
+     * getAlbumCover
+     *
+     * Get the album cover picture from coverartarchive.org
+     *
+     * @param $get array it's the $_GET global var from the request environment
+     * @return string in json of the results
+     */
     public function getAlbumCover($get){
         $mbid = $get["mbid"];
         $url = "coverartarchive.org/release/" . $mbid;
@@ -100,6 +162,16 @@ class LastfmController {
         return $response;
     }
 
+    /**
+     * getEventsAt
+     *
+     * Get the list of events based on location
+     * $_GET(required) - location
+     * $_GET(optional) - page
+     *
+     * @param $get array it's the $_GET global var from the request environment
+     * @return string in json of the results
+     */
     public function getEventsAt($get) {
         $location = preg_replace('/\s+/', '%20', $get['location']);
         $page = (isset($get['page']) && !empty($get['page'])) ? $get['page'] : '1';
