@@ -59,23 +59,25 @@ function getTopTracksTag() {
             table.appendChild(tr);
         }
         divTagTopTracks.appendChild(table);
-    }), "GET";
+    }, "GET");
 }
+var albumName = "";
 //Function that  get's via AJaX a list of info of selected track
 function getMoreInfo(artistName, trackName) {
     divTooltip = document.getElementById("divToolTip");
-    //xpto();
+    var artistNamNoSpaces = artistName;
     artistName = artistName.replace(/ /g, "%20");
     // set album name
     setAlbumName(artistName,trackName);
+     alert(artistNamNoSpaces + " - " + albumName);
     // set artist image
-    setArtistImage(artistName);
+    //setArtistImage(artistName);
     // set artist top 3 albums artist
-    setTop3Albums(artistName);
+    //setTop3Albums(artistName);
     // set artist toptrack
-    setArtistTopTrack(artistName);
+    //setArtistTopTrack(artistName);
     //show div
-    divTooltip.style.display = "block";
+    //divTooltip.style.display = "block";
     //divTooltip.style.left = "50px";
     //divTooltip.style.top = "321px";
 }
@@ -86,10 +88,12 @@ function setAlbumName(artistName,trackName) {
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
         var atname = document.getElementById("atname");
-        atname.innerHTML = response.track.artist.name;
+        //atname.innerHTML = response.track.artist.name;
         var abname = document.getElementById("abname");
-        abname.innerHTML = response.track.album.title;
-    }), "GET";
+        //abname.innerHTML = response.track.album.title;
+        albumName = response.track.album.title;
+    }, "GET",false);
+    //return albumName;
 }
 
 function setArtistImage(artistName) {
@@ -98,7 +102,7 @@ function setArtistImage(artistName) {
         var response = JSON.parse(xmlHttpObj.responseText);
         var image = document.getElementById("atimage");
         image.src = response.artist.image[2]["#text"];
-    }), "GET";
+    }, "GET",false);
 }
 
 function setTop3Albums(artistName) {
@@ -113,7 +117,7 @@ function setTop3Albums(artistName) {
                 top3ab.innerHTML += ", ";
             }
         }
-    }), "GET";
+    }, "GET",false);
 }
 
 function setArtistTopTrack(artistName) {
@@ -122,5 +126,5 @@ function setArtistTopTrack(artistName) {
         var response = JSON.parse(xmlHttpObj.responseText);
         var toptrack = document.getElementById("toptrack");
         toptrack.innerHTML = response.toptracks.track[0].name;
-    }), "GET";
+    }, "GET",false);
 }

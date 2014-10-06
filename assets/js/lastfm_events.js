@@ -109,5 +109,5 @@ function getEvents(page) {
             result.innerHTML += "<br /><div class=\"clear\"></div>";
 
         }
-    }), "GET";
+    }, "GET");
 }

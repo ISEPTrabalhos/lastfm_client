@@ -1,8 +1,9 @@
-function sendRequest(url,callback,postData) {
+function sendRequest(url,callback,postData,async) {
     var req = createXMLHTTPObject();
+    async = typeof async !== 'undefined' ? async : true;
     if (!req) return;
     var method = (postData) ? "POST" : "GET";
-    req.open(method,url,true);
+    req.open(method,url,async);
     if (postData)
         req.setRequestHeader('Content-type','application/x-www-form-urlencoded');
     req.onreadystatechange = function () {
