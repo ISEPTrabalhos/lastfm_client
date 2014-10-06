@@ -17,8 +17,8 @@ function getEvents(page) {
     var result = document.getElementById("divEventsResults");
     place = place.replace(/ /g, "%20");
 
-    // assets/php/lastfm.php?func=getEventsAt&location=Porto&distance=20
-    var url = "assets/php/lastfm.php?func=getEventsAt&location=" + place + "&distance=" + limit + "&page=" + page;
+    // assets/php/ajaxRequest.php?func=getEventsAt&location=Porto&distance=20
+    var url = "assets/php/ajaxRequest.php?func=getEventsAt&location=" + place + "&distance=" + limit + "&page=" + page;
 
     //send ajax request
     sendRequest(url, function(xmlHttpObj) {

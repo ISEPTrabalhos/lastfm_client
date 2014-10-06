@@ -6,7 +6,7 @@ function getArtistTopTags(){
     var artist = document.getElementById("artistName").value;
 
     //send ajax request
-    sendRequest("assets/php/lastfm.php?func=getArtistTopTags&artist=" + artist, function(xmlHttpObj) {
+    sendRequest("assets/php/ajaxRequest.php?func=getArtistTopTags&artist=" + artist, function(xmlHttpObj) {
         var response = xmlHttpObj.responseText;
         var tagNameList = response.split(";");
         var divTopTags = document.getElementById("divTopTags");
@@ -36,7 +36,7 @@ function getTopTracksTag() {
     var tag = document.getElementById("selectTopTag").value;
     tag = tag.replace(/ /g, "%20");
 
-    var url = "assets/php/lastfm.php?func=getTopTracksTag&tag=" + tag + "&limit=" + limit + "&format=json";
+    var url = "assets/php/ajaxRequest.php?func=getTopTracksTag&tag=" + tag + "&limit=" + limit + "&format=json";
 
     //send ajax request
     sendRequest(url, function(xmlHttpObj) {
@@ -82,7 +82,7 @@ function getMoreInfo(artistName, trackName) {
 
 function setAlbumName(artistName,trackName) {
     trackName = trackName.replace(/ /g, "%20");
-    var url = "assets/php/lastfm.php?func=getTrackInfo&track=" + trackName + "&artist=" + artistName + "&format=json";
+    var url = "assets/php/ajaxRequest.php?func=getTrackInfo&track=" + trackName + "&artist=" + artistName + "&format=json";
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
         var atname = document.getElementById("atname");
@@ -93,7 +93,7 @@ function setAlbumName(artistName,trackName) {
 }
 
 function setArtistImage(artistName) {
-    var url = "assets/php/lastfm.php?func=getArtistImage&artist=" + artistName + "&format=json";
+    var url = "assets/php/ajaxRequest.php?func=getArtistImage&artist=" + artistName + "&format=json";
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
         var image = document.getElementById("atimage");
@@ -102,7 +102,7 @@ function setArtistImage(artistName) {
 }
 
 function setTop3Albums(artistName) {
-    url = "assets/php/lastfm.php?func=getArtistTop3Albums&artist=" + artistName + "&format=json";
+    url = "assets/php/ajaxRequest.php?func=getArtistTop3Albums&artist=" + artistName + "&format=json";
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
         var top3ab = document.getElementById("top3ab");
@@ -117,7 +117,7 @@ function setTop3Albums(artistName) {
 }
 
 function setArtistTopTrack(artistName) {
-    url = "assets/php/lastfm.php?func=getArtistTopTrack&artist=" + artistName + "&format=json";
+    url = "assets/php/ajaxRequest.php?func=getArtistTopTrack&artist=" + artistName + "&format=json";
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
         var toptrack = document.getElementById("toptrack");
