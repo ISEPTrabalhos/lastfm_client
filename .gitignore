@@ -40,3 +40,6 @@ Thumbs.db
 ######################
 .sass-cache
 *.css.map
+
+# ignore files
+config.ini
