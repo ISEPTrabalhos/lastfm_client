@@ -1,12 +1,14 @@
 <?php
     require_once 'LastfmController.php';
 
+    $data = parse_ini_file("../config.ini", true);
+
     $lastFM = new LastfmController(
-        'HOST_NAME', // localhost
-        'DB_NAME', // DB name
-        'DB_USERNAME', // username from DB
-        'DB_PASSWORD', // password from DB
-        'e85bfd5e26e0e91b53160653d86ba063'); // lastFM API key
+        $data['mysql']['hostname'], // localhost
+        $data['mysql']['database'], // DB name
+        $data['mysql']['username'], // username from DB
+        $data['mysql']['password'], // password from DB
+        $data['lastfm']['api_key']); // lastFM API key
 
     // get the function from GET
     $func = $_GET["func"];
