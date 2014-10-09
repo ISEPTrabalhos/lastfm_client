@@ -1,114 +1,76 @@
 <?php
 class DB {
-    private $_connection;
-    private $_info = array();
-    private $_num;
-    private $_result;
-    private $_enable = false;
+	private static $_instance;
+	private $_pdo,
+			$_results,
+			$_count,
+			$_errors;
 
-    public function __construct($db_hostname, $db_database, $db_username, $db_password) {
-        $this->_info['db_hostname'] = $db_hostname;
-        $this->_info['db_database'] = $db_database;
-        $this->_info['db_username'] = $db_username;
-        $this->_info['db_password'] = $db_password;
-
+	// pattern design pattern
+	private function __construct($db_host, $db_name, $db_username, $db_password){
+		$this->_errors = 0;
         try{
-            // Start connects and chose the DB | @ to supress warning's and error's
-            $this->_connection = @mysql_connect($db_hostname, $db_username, $db_password);
-            if(!$this->_connection) throw new Exception("");
-
-            mysql_select_db($db_database, $this->_connection);
-            $this->_enable = true;
-        }catch(Exception $e){echo $e->getMessage();}
+            $this->_pdo = new PDO(
+                'mysql:host=' . $db_host .
+                ';dbname=' . $db_name ,
+                $db_username,
+                $db_password);
+        }catch(PDOException $e){
+        	$this->_errors++;
+            die($e->getMessage());
+        }
     }
+
+    public static function getInstance(){
+        if(!isset(self::$_instance)){
+            self::$_instance = new DB();
+        }
+        return self::$_instance;
+    }
+
+    /**
+     * query
+     *
+     * Execute query, bind all the information on array
+     * and store all the data in results and count var's
+     *
+     * @param $sql string sql to DB execute
+     * @param $args array of arguments to bind on $sql string
+     * @return bool false if it go wrong
+     */
+    private function query($sql, $args = array()) {}
 
     /**
      * select
      *
-     * Select something from DB
+     * Uses the query function to select data from some table
+     * and store teresults under results variable.
      *
-     * @param $query string sql to DB execute
+     * Example:.
+     * : select('users',array('id' =>'1'));
+     * : SELECT * FROM users WHERE id = :id
+     * : BIND :id = 1
+     *
+     * @param $table string table to execute query
+     * @param $where array associative array of condition values 
      * @return bool false if it go wrong
      */
-    public function select($query) {
-        if(!$this->_enable) return;
-        try {
-            $record = mysql_query($query);
-
-            $this->_result = array();
-            $this->_num = 0;
-
-            while(($row = mysql_fetch_array($record, MYSQL_ASSOC))) {
-                $this->_result[$this->_num] = $row;
-                $this->_num++;
-            }
-
-            if($record === false) throw new Exception(mysql_error());
-            return true;
-        }catch(Exception $e){
-            echo $e->getMessage();
-            return false;
-        }
-    }
+    public function select($table, $where = array()) {}
 
     /**
      * insert
      *
-     * insert something in to DB
+     * Execute query and bind all the information on array
      *
-     * @param $query string sql to DB execute
+     * Example:.
+     * : insert('users',array('id' =>'null', 'name' => 'adam'));
+     * : INSERT * INTO users (id, name) VALUES (:id, :name);
+     * : BIND :id = null
+     * : BIND :name = adam
+     *
+     * @param $table string table to execute query
+     * @param $args array associative array of values to add
      * @return bool false if it go wrong
      */
-    public function insert($query) {
-        if(!$this->_enable) return;
-        try {
-            $record = mysql_query($query);
-            if($record === false) throw new Exception(mysql_error());
-            return true;
-        }catch(Exception $e){
-            echo $e->getMessage();
-            return false;
-        }
-    }
-
-    /**
-     * getResults
-     *
-     * @return array data from the datagase
-     */
-    public function getResults() {
-        if(!$this->_enable) return;
-        return (isset($this->_result)) ? $this->_result : null;
-    }
-
-    /**
-     * getFirst
-     *
-     * @return object first row from DB
-     */
-    public function getFirst() {
-        if(!$this->_enable) return;
-        $var = (isset($this->_result)) ? $this->_result[0] : null;
-        return $var;
-    }
-
-    /**
-     * getNumElem
-     *
-     * @return int number of row's returned from DB
-     */
-    public function getNumElem(){
-        if(!$this->_enable) return;
-        return (isset($this->_num)) ? $this->_num : 0;
-    }
-
-    /**
-     * endConnection
-     *
-     * end connection to DB
-     */
-    public function endConnection(){
-        if(!$this->_enable) return;
-        mysql_close();
-    }
+    public function insert($table, $args = array()) {}
 }
