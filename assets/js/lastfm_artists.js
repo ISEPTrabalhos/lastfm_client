@@ -68,6 +68,18 @@ function getMoreInfo(artistName, trackName) {
     var td = document.getElementById(trackName);
     var artistNamNoSpaces = artistName;
     artistName = artistName.replace(/ /g, "%20");
+    var info;
+    var url = "assets/php/ajaxRequest.php?func=getAllInfo&track=" + trackName + "&artist=" + artistName + "&format=json";
+    sendRequest(url, function(xmlHttpObj) {
+        var response = JSON.parse(xmlHttpObj.responseText);
+        console.log(response);
+        info = response;
+    }, "GET",false);
+
+
+    var MBID = info[0];
+
+    /*
     // get album name
     var albumName = getAlbumName(artistName,trackName);
     // get artist image
@@ -75,7 +87,7 @@ function getMoreInfo(artistName, trackName) {
     // get artist top 3 albums artist
     var top3a = getTop3Albums(artistName);
     // get artist tt
-    var tt = getArtistTopTrack(artistName);
+    var tt = getArtistTopTrack(artistName);*/
 
     // CREATE AND DISPLAY DIV
     var divToolTip = document.createElement("div");
@@ -87,7 +99,7 @@ function getMoreInfo(artistName, trackName) {
     var p = document.createElement("p");
     p.innerHTML = "Artist Image ";
     var image = document.createElement("img");
-    image.src = src;
+    image.src = info[2];
     p.appendChild(image);
     divImages.appendChild(p);
     divToolTip.appendChild(divImages);
@@ -96,7 +108,7 @@ function getMoreInfo(artistName, trackName) {
     var divInfo = document.createElement("div");
     divInfo.className = "infos";
     p = document.createElement("p");
-    p.innerHTML = "Artist Image: ";
+    p.innerHTML = "Artist Name: ";
     var span = document.createElement("span");
     span.innerHTML += artistNamNoSpaces;
     p.appendChild(span);
@@ -104,19 +116,19 @@ function getMoreInfo(artistName, trackName) {
     p = document.createElement("p");
     p.innerHTML = "Album Image: ";
     var span = document.createElement("span");
-    span.innerHTML += albumName;
+    span.innerHTML += info[1];
     p.appendChild(span);
     divInfo.appendChild(p);
     p = document.createElement("p");
     p.innerHTML = "Top 3 Albuns: ";
     var span = document.createElement("span");
-    span.innerHTML += top3a;
+    span.innerHTML += info[3];
     p.appendChild(span);
     divInfo.appendChild(p);
     p = document.createElement("p");
     p.innerHTML = "Top Track: ";
     var span = document.createElement("span");
-    span.innerHTML += tt;
+    span.innerHTML += info[4];
     p.appendChild(span);
     divInfo.appendChild(p);
     divToolTip.appendChild(divInfo);
@@ -134,50 +146,4 @@ function getMoreInfo(artistName, trackName) {
 
     divToolTip.style.display = "block";
     td.appendChild(divToolTip);
-}
-
-function getAlbumName(artistName,trackName) {
-    trackName = trackName.replace(/ /g, "%20");
-    var albumName = "";
-    var url = "assets/php/ajaxRequest.php?func=getTrackInfo&track=" + trackName + "&artist=" + artistName + "&format=json";
-    sendRequest(url, function(xmlHttpObj) {
-        var response = JSON.parse(xmlHttpObj.responseText);
-        albumName = response.track.album.title;
-    }, "GET",false);
-    return albumName;
-}
-
-function getArtistImage(artistName) {
-    var url = "assets/php/ajaxRequest.php?func=getArtistImage&artist=" + artistName + "&format=json";
-    var src = "";
-    sendRequest(url, function(xmlHttpObj) {
-        var response = JSON.parse(xmlHttpObj.responseText);
-        src = response.artist.image[2]["#text"];
-    }, "GET",false);
-    return src;
-}
-
-function getTop3Albums(artistName) {
-    var url = "assets/php/ajaxRequest.php?func=getArtistTop3Albums&artist=" + artistName + "&format=json";
-    var top3a = "";
-    sendRequest(url, function(xmlHttpObj) {
-        var response = JSON.parse(xmlHttpObj.responseText);
-        for(var i=0; i < 3; i++) {
-            top3a += response.topalbums.album[i].name;
-            if(i==0 || i==1) {
-                top3a+= ", ";
-            }
-        }
-    }, "GET",false);
-    return top3a;
-}
-
-function getArtistTopTrack(artistName) {
-    var url = "assets/php/ajaxRequest.php?func=getArtistTopTrack&artist=" + artistName + "&format=json";
-    var track = "";
-    sendRequest(url, function(xmlHttpObj) {
-        var response = JSON.parse(xmlHttpObj.responseText);
-        track = response.toptracks.track[0].name;
-    }, "GET",false);
-    return track;
 }
