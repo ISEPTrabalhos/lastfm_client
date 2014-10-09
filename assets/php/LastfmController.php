@@ -18,6 +18,22 @@ class LastfmController {
         $this->_api_url = "http://ws.audioscrobbler.com/2.0/?method=";
     }
 
+    public function getAllInfo($get) {
+        $info = array(); // array to store all info receveid
+        // get track info : ALBUM AND MBID
+        $trackInfo = $this->getTrackInfo($get);
+        $info[0] = $trackInfo[0];
+        $info[1] = $trackInfo[1];
+        // get ARTIST IMAGE
+        $info[2] = $this->getArtistImage($get);
+        // get artist TOP 3 ALBUNS
+        $info[3] = $this->getArtistTop3Albums($get);
+        // get ARTIST TOP TRACK*/
+        $info[4] = $this->getArtistTopTrack($get);
+        return json_encode($info);
+    }
+
+
     /**
      * getArtistTopTrack
      *
@@ -26,11 +42,12 @@ class LastfmController {
      * @param $get array it's the $_GET global var from the request environment
      * @return string in json of the results
      */
-    public function getArtistTopTrack($get) {
+    private function getArtistTopTrack($get) {
         $artist = $get["artist"];
         $artist = str_replace(' ', "%20", $artist);
-        $response = file_get_contents($this->_api_url . 'artist.getTopTracks&artist=' . $artist . '&api_key='. $this->_api_key .'&format=json');
-        return $response;
+        $json = file_get_contents($this->_api_url . 'artist.getTopTracks&artist=' . $artist . '&api_key='. $this->_api_key .'&format=json');
+        $response = json_decode($json, true) ;
+        return $response['toptracks']['track'][0]['name'];
     }
 
     /**
@@ -41,11 +58,19 @@ class LastfmController {
      * @param $get array it's the $_GET global var from the request environment
      * @return string in json of the results
      */
-    public function getArtistTop3Albums($get) {
+    private function getArtistTop3Albums($get) {
         $artist = $get["artist"];
         $artist = str_replace(' ', "%20", $artist);
-        $response = file_get_contents($this->_api_url . 'artist.getTopAlbums&artist=' . $artist . '&api_key='. $this->_api_key .'&format=json');
-        return $response;
+        $json = file_get_contents($this->_api_url . 'artist.getTopAlbums&artist=' . $artist . '&api_key='. $this->_api_key .'&format=json');
+        $response = json_decode($json, true) ;
+        $top = "";
+        for($i=0;$i < 3; $i++) {
+            $top .= $response['topalbums']['album'][$i]['name'];
+            if($i==0 || $i==1) {
+                $top.= ", ";
+            }
+        }
+        return $top;
     }
 
     /**
@@ -56,11 +81,12 @@ class LastfmController {
      * @param $get array it's the $_GET global var from the request environment
      * @return string in json of the results
      */
-    public function getArtistImage($get) {
+    private function getArtistImage($get) {
         $artist = $get["artist"];
         $artist = str_replace(' ', "%20", $artist);
-        $response = file_get_contents($this->_api_url . 'artist.getInfo&artist=' . $artist . '&api_key='. $this->_api_key .'&format=json');
-        return $response;
+        $json = file_get_contents($this->_api_url . 'artist.getInfo&artist=' . $artist . '&api_key='. $this->_api_key .'&format=json');
+        $response = json_decode($json, true) ;
+        return $response['artist']['image'][2]['#text'];
     }
 
     /**
@@ -71,13 +97,17 @@ class LastfmController {
      * @param $get array it's the $_GET global var from the request environment
      * @return string in json of the results
      */
-    public function getTrackInfo($get) {
+    private function getTrackInfo($get) {
         $artist = $get["artist"];
         $artist = str_replace(' ', "%20", $artist);
         $track = $get["track"];
         $track = str_replace(' ', "%20", $track);
-        $response = file_get_contents($this->_api_url . 'track.getInfo&track=' . $track . '&artist=' . $artist . '&api_key='. $this->_api_key .'&format=json');
-        return $response;
+        $json = file_get_contents($this->_api_url . 'track.getInfo&track=' . $track . '&artist=' . $artist . '&api_key='. $this->_api_key .'&format=json');
+        $response = json_decode($json, true) ;
+        $info = array();
+        $info[0] = $response['track']['album']['mbid'];
+        $info[1] = $response['track']['album']['title'];
+        return $info;
     }
 
     /**
