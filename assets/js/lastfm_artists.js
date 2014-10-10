@@ -72,12 +72,17 @@ function getMoreInfo(artistName, trackName) {
     var url = "assets/php/ajaxRequest.php?func=getAllInfo&track=" + trackName + "&artist=" + artistName + "&format=json";
     sendRequest(url, function(xmlHttpObj) {
         var response = JSON.parse(xmlHttpObj.responseText);
-        console.log(response);
         info = response;
     }, "GET",false);
 
 
-    var MBID = info[0];
+    var mbid = info[0];
+    var urlAlbumCover = "assets/php/ajaxRequest.php?func=getAlbumCover&mbid=" + mbid;
+    var imgSrc;
+    sendRequest(urlAlbumCover, function(xmlHttpObj1) {
+        console.log(xmlHttpObj1.responseText);
+        imgSrc = xmlHttpObj1.responseText;
+    }, "GET");
 
     /*
     // get album name
@@ -139,7 +144,7 @@ function getMoreInfo(artistName, trackName) {
     var p = document.createElement("p");
     p.innerHTML = "Album Image: ";
     var image = document.createElement("img");
-    image.src = "http://placehold.it/114x114";
+    image.src = imgSrc;
     p.appendChild(image);
     divImages.appendChild(p);
     divToolTip.appendChild(divImages);
