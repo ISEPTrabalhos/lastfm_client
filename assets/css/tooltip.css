@@ -29,3 +29,41 @@
 .divToolTip div span {
     color: white;
 }
+
+.widget {
+    width: 200px;
+    height: 600px;
+    background: rgba(0,0,0,0.7);
+    border: 1px solid black;
+    border-radius: 3px;
+    position: fixed;
+    left: 50px;
+    top: 30px;
+    display: none;
+}
+
+.widget div {
+    float: left;
+    color: green;
+    font-family: 'Oldenburg', cursive;
+    font-size: 13px;
+    text-align: center;
+}
+.widget .images {
+    height: 175px;
+}
+.widget .images img {
+    padding-top: 10px;
+    width: 114px;
+    height: 114px;
+}
+.widget .infos {
+    width: 100%;
+    height: 250px;
+}
+.widget div span {
+    color: white;
+}
+.widget div span.title {
+    color: green;
+}
