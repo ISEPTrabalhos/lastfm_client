@@ -51,7 +51,6 @@ function getTopTracksTag() {
             var a = document.createElement("a");
             var text = document.createTextNode(topTracks[i].name);
             a.appendChild(text);
-            td.id = topTracks[i].name;
             var method = "getMoreInfo("+'"'+topTracks[i].artist.name+'"'+","+'"'+topTracks[i].name+'"'+")";
             a.href="javascript:"+method+";";
             td.appendChild(a);
@@ -64,8 +63,6 @@ function getTopTracksTag() {
 
 //Function that  get's via AJaX a list of info of selected track
 function getMoreInfo(artistName, trackName) {
-    // get correspondent cell
-    var td = document.getElementById(trackName);
     var artistNamNoSpaces = artistName;
     artistName = artistName.replace(/ /g, "%20");
     var info;
@@ -84,59 +81,72 @@ function getMoreInfo(artistName, trackName) {
         imgSrc = xmlHttpObj1.responseText;
     }, "GET");
 
-    /*
-    // get album name
-    var albumName = getAlbumName(artistName,trackName);
-    // get artist image
-    var src = getArtistImage(artistName);
-    // get artist top 3 albums artist
-    var top3a = getTop3Albums(artistName);
-    // get artist tt
-    var tt = getArtistTopTrack(artistName);*/
-
     // CREATE AND DISPLAY DIV
-    var divToolTip = document.createElement("div");
-    divToolTip.className = "divToolTip";
+    var widget = document.createElement("div");
+    widget.className = "widget";
 
-    // left div
+    // top div
     var divImages = document.createElement("div");
     divImages.className = "images";
     var p = document.createElement("p");
     p.innerHTML = "Artist Image ";
     var image = document.createElement("img");
     image.src = info[2];
+    //image.src = "http://placehold.it/114x114";
     p.appendChild(image);
     divImages.appendChild(p);
-    divToolTip.appendChild(divImages);
+    widget.appendChild(divImages);
 
     // center div
-    var divInfo = document.createElement("div");
-    divInfo.className = "infos";
-    p = document.createElement("p");
-    p.innerHTML = "Artist Name: ";
-    var span = document.createElement("span");
-    span.innerHTML += artistNamNoSpaces;
-    p.appendChild(span);
-    divInfo.appendChild(p);
-    p = document.createElement("p");
-    p.innerHTML = "Album Image: ";
-    var span = document.createElement("span");
-    span.innerHTML += info[1];
-    p.appendChild(span);
-    divInfo.appendChild(p);
-    p = document.createElement("p");
-    p.innerHTML = "Top 3 Albuns: ";
-    var span = document.createElement("span");
-    span.innerHTML += info[3];
-    p.appendChild(span);
-    divInfo.appendChild(p);
-    p = document.createElement("p");
-    p.innerHTML = "Top Track: ";
-    var span = document.createElement("span");
-    span.innerHTML += info[4];
-    p.appendChild(span);
-    divInfo.appendChild(p);
-    divToolTip.appendChild(divInfo);
+
+     var line = document.createElement("br");
+     var divInfo = document.createElement("div");
+     divInfo.className = "infos";
+     p = document.createElement("p");
+     var span = document.createElement("span");
+     span.className = "title";
+     span.innerHTML = "Artist Name"
+     p.appendChild(span);
+     p.appendChild(document.createElement("br"));
+     span = document.createElement("span");
+     span.innerHTML += artistNamNoSpaces;
+     p.appendChild(span);
+     divInfo.appendChild(p);
+
+     p = document.createElement("p");
+     span = document.createElement("span");
+     span.className = "title";
+     span.innerHTML = "Album Name";
+     p.appendChild(span);
+     p.appendChild(document.createElement("br"));
+     var span = document.createElement("span");
+     span.innerHTML += info[1];
+     p.appendChild(span);
+     divInfo.appendChild(p);
+
+     p = document.createElement("p");
+     span = document.createElement("span");
+     span.className = "title";
+     span.innerHTML = "Top 3 Albuns";
+     p.appendChild(span);
+     p.appendChild(document.createElement("br"));
+     var span = document.createElement("span");
+     span.innerHTML += info[3];
+     p.appendChild(span);
+     divInfo.appendChild(p);
+
+     p = document.createElement("p");
+     span = document.createElement("span");
+     span.className = "title";
+     span.innerHTML = "Top Track: ";
+     p.appendChild(span);
+     p.appendChild(document.createElement("br"))
+     span = document.createElement("span");
+     span.innerHTML += info[4];
+     p.appendChild(span);
+     divInfo.appendChild(p);
+
+     widget.appendChild(divInfo);
 
     // right div
     var divImages = document.createElement("div");
@@ -145,10 +155,11 @@ function getMoreInfo(artistName, trackName) {
     p.innerHTML = "Album Image: ";
     var image = document.createElement("img");
     image.src = imgSrc;
+    //image.src = "http://placehold.it/114x114";
     p.appendChild(image);
     divImages.appendChild(p);
-    divToolTip.appendChild(divImages);
+    widget.appendChild(divImages);
 
-    divToolTip.style.display = "block";
-    td.appendChild(divToolTip);
+    widget.style.display = "block";
+    document.getElementsByTagName("body")[0].appendChild(widget);
 }
