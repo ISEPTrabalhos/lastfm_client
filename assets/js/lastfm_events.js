@@ -31,11 +31,13 @@ function getEvents(page) {
                 var title = document.createElement("h2");
                 var artist = document.createElement("p");
                 var location = document.createElement("p");
+                var locationSpan = document.createElement("span");
                 var start = document.createElement("p");
                 var description = document.createElement("p");
                 var image = document.createElement("img");
                 var map = document.createElement("iframe");
                 var clear = document.createElement("div");
+                var artistSpan = document.createElement("span");
 
                 title.className = "title";
                 artist.className = "artist";
@@ -45,6 +47,22 @@ function getEvents(page) {
                 image.className = "image";
                 clear.className = "clear";
 
+                article.setAttribute("itemscope", "");
+                article.setAttribute("itemtype", "http://schema.org/MusicEvent");
+                title.setAttribute("itemprop", "name");
+
+                artistSpan.setAttribute("itemprop","performer");
+                artistSpan.setAttribute("itemscope", "");
+                artistSpan.setAttribute("itemtype", "http://schema.org/MusicGroup");
+                artist.setAttribute("itemprop","name");
+
+                locationSpan.setAttribute("itemprop", "location");
+                locationSpan.setAttribute("itemscope", "");
+                locationSpan.setAttribute("itemtype", "http://schema.org/MusicVenue");
+                location.setAttribute("itemprop", "address");
+
+                start.setAttribute("itemprop", "startdate");
+                image.setAttribute("itemprop", "image");
 
                 title.innerHTML = obj.title;
                 artist.innerHTML = "";
@@ -84,8 +102,10 @@ function getEvents(page) {
                 result.appendChild(article);
                 article.appendChild(title);
                 if(obj.image[obj.image.length - 1]["#text"] != '') article.appendChild(image);
-                article.appendChild(artist);
-                article.appendChild(location);
+                artistSpan.appendChild(artist);
+                article.appendChild(artistSpan);
+                locationSpan.appendChild(location)
+                article.appendChild(locationSpan);
                 article.appendChild(start);
                 article.appendChild(clear);
                 article.appendChild(description);
