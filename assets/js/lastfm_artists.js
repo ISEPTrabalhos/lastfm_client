@@ -35,33 +35,33 @@ function getTopTracksTag() {
     var limit = document.getElementById("topTrackLimit").value;
     var tag = document.getElementById("selectTopTag").value;
     tag = tag.replace(/ /g, "%20");
-
     var url = "assets/php/ajaxRequest.php?func=getTopTracksTag&tag=" + tag + "&limit=" + limit + "&format=json";
-
-    //send ajax request
-    sendRequest(url, function(xmlHttpObj) {
-        var response = JSON.parse(xmlHttpObj.responseText);
-        var topTracks = response.toptracks.track;
-        var divTagTopTracks = document.getElementById("divTagTopTracks");
-        divTagTopTracks.innerHTML="";
-        var table = document.createElement("table");
-        for (var i = 0; i < topTracks.length; i++) {
-            var tr = document.createElement("tr");
-            var td = document.createElement("td");
-            var a = document.createElement("a");
-            //var text = document.createTextNode(topTracks[i].name);
-            //a.appendChild(text);
-            var method = "getMoreInfo("+'"'+topTracks[i].artist.name+'"'+","+'"'+topTracks[i].name+'"'+")";
-            //a.href="javascript:"+method+";";
-            //td.appendChild(a);
-            td.innerHTML += '<a onmouseover="'+
-                    "getMoreInfo('"+topTracks[i].artist.name+"', '"+topTracks[i].name+"');"
-                +'">'+topTracks[i].name+'</a>';
-            tr.appendChild(td);
-            table.appendChild(tr);
-        }
-        divTagTopTracks.appendChild(table);
-    }, "GET");
+    if(tag != "--"){
+        //send ajax request
+        sendRequest(url, function(xmlHttpObj) {
+            var response = JSON.parse(xmlHttpObj.responseText);
+            var topTracks = response.toptracks.track;
+            var divTagTopTracks = document.getElementById("divTagTopTracks");
+            divTagTopTracks.innerHTML="";
+            var table = document.createElement("table");
+            for (var i = 0; i < topTracks.length; i++) {
+                var tr = document.createElement("tr");
+                var td = document.createElement("td");
+                var a = document.createElement("a");
+                //var text = document.createTextNode(topTracks[i].name);
+                //a.appendChild(text);
+                var method = "getMoreInfo("+'"'+topTracks[i].artist.name+'"'+","+'"'+topTracks[i].name+'"'+")";
+                //a.href="javascript:"+method+";";
+                //td.appendChild(a);
+                td.innerHTML += '<a onmouseover="'+
+                        "getMoreInfo('"+topTracks[i].artist.name+"', '"+topTracks[i].name+"');"
+                    +'">'+topTracks[i].name+'</a>';
+                tr.appendChild(td);
+                table.appendChild(tr);
+            }
+            divTagTopTracks.appendChild(table);
+        }, "GET");
+    }
 }
 
 
