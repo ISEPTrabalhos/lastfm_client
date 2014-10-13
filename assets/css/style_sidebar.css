@@ -1,0 +1,38 @@
+@import url(http://fonts.googleapis.com/css?family=Oldenburg|Open+Sans);
+@import url("tooltip.css");
+@import url("location_sidebar.css");
+@import url("artists_sidebar.css");
+
+#content {
+	width: 300px;
+	height: 600px;
+	margin: 0 auto;
+	font-family: 'Open Sans', sans-serif;
+	background-image: url('../img/bg.png');
+	border-radius: 4px;
+	overflow: scroll;
+}
+
+.wraper {
+	width: 98%;
+	margin: 0 auto;
+}
+
+#content header h1 {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	font-family: 'Oldenburg', cursive;
+	font-size: 20pt;
+}
+
+#headerTop {display: none;}
+
+
+.clear {
+	clear: both;
+}
+
+.invisible {
+	display: none;
+}
