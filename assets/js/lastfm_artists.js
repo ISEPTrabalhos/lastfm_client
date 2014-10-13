@@ -48,14 +48,15 @@ function getTopTracksTag() {
                 var tr = document.createElement("tr");
                 var td = document.createElement("td");
                 var a = document.createElement("a");
-                //var text = document.createTextNode(topTracks[i].name);
-                //a.appendChild(text);
+                var text = document.createTextNode(topTracks[i].name);
+                a.appendChild(text);
                 var method = "getMoreInfo("+'"'+topTracks[i].artist.name+'"'+","+'"'+topTracks[i].name+'"'+")";
-                //a.href="javascript:"+method+";";
-                //td.appendChild(a);
-                td.innerHTML += '<a onmouseover="'+
+                a.href="javascript:"+method+";";
+                td.appendChild(a);
+                /*td.innerHTML += '<a onmouseover="'+
                         "getMoreInfo('"+topTracks[i].artist.name+"', '"+topTracks[i].name+"');"
-                    +'">'+topTracks[i].name+'</a>';
+                    +'">'+topTracks[i].name+'</a>';*/
+
                 tr.appendChild(td);
                 table.appendChild(tr);
             }
@@ -64,6 +65,9 @@ function getTopTracksTag() {
     }
 }
 
+function clearToolTipDiv() { // clear old div
+   document.getElementById("tooltip").innerHTML = "";
+}
 
 //Function that  get's via AJaX a list of info of selected track
 function getMoreInfo(artistName, trackName) {
@@ -86,11 +90,16 @@ function getMoreInfo(artistName, trackName) {
     }, "GET");
 
     // CREATE AND DISPLAY DIV
-
-    var tooltip = document.getElementById("tooltip");
-    tooltip.innerHTML = ""; // clear old div
+    //var tooltip = document.getElementById("tooltip");
+    //tooltip.innerHTML = ""; // clear old div
+    clearToolTipDiv();
     var widget = document.createElement("div");
     widget.className = "widget";
+
+    //add close button
+    var a = document.createElement("a");
+    widget.innerHTML += '<a href="javascript:clearToolTipDiv();" class="close"><i class="fa fa-times"></i></a>';
+    widget.appendChild(a);
 
     // top div
     var divImages = document.createElement("div");
@@ -105,7 +114,6 @@ function getMoreInfo(artistName, trackName) {
     widget.appendChild(divImages);
 
     // center div
-
      var line = document.createElement("br");
      var divInfo = document.createElement("div");
      divInfo.className = "infos";
@@ -168,5 +176,5 @@ function getMoreInfo(artistName, trackName) {
     widget.appendChild(divImages);
 
     widget.style.display = "block";
-    tooltip.appendChild(widget);
+    document.getElementById("tooltip").appendChild(widget);
 }

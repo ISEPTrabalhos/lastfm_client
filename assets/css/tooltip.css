@@ -67,3 +67,12 @@
 .widget div span.title {
     color: green;
 }
+
+.widget a.close {
+    float: right;
+    top: 3px;
+    right: 5px;
+    position: relative;
+    color: white;
+    text-decoration: none;
+}
