@@ -127,6 +127,10 @@ class LastfmController {
     public function getArtistTopTags($get) {
         $artist = $get["artist"];
         $artist = str_replace(' ', "%20", $artist);
+
+	    // add exception. Return error '';
+	    if(empty($get["artist"]) || $get["artist"] == ' ') return '';
+
         $url = $this->_api_url . 'artist.gettoptags&artist=' . $artist . '&api_key=' . $this->_api_key;
         $responseXML = file_get_contents($url);
 
