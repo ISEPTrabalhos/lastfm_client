@@ -1,114 +1,163 @@
 <?php
 class DB {
-    private $_connection;
-    private $_info = array();
-    private $_num;
-    private $_result;
-    private $_enable = false;
+    private $_pdo,
+        $_results,
+	    $_count,
+        $_errors;
 
-    public function __construct($db_hostname, $db_database, $db_username, $db_password) {
-        $this->_info['db_hostname'] = $db_hostname;
-        $this->_info['db_database'] = $db_database;
-        $this->_info['db_username'] = $db_username;
-        $this->_info['db_password'] = $db_password;
-
+	public function __construct($db_host, $db_name, $db_username, $db_password){
+		$this->_errors = 0;
         try{
-            // Start connects and chose the DB | @ to supress warning's and error's
-            $this->_connection = @mysql_connect($db_hostname, $db_username, $db_password);
-            if(!$this->_connection) throw new Exception("");
-
-            mysql_select_db($db_database, $this->_connection);
-            $this->_enable = true;
-        }catch(Exception $e){echo $e->getMessage();}
+            $this->_pdo = new PDO(
+	            'mysql:host=' . $db_host .
+                ';dbname=' . $db_name ,
+                $db_username,
+                $db_password);
+        }catch(PDOException $e){
+        	$this->_errors++;
+        }
     }
+
+    /**
+     * prepareQuery
+     *
+     * Bind all the information on query
+     *
+     * @param $sql string sql to DB execute
+     * @param $args array of arguments to bind on $sql string
+     * @return bool false if it go wrong
+     */
+	private function prepareQuery($sql, $args = array()){
+		foreach($args as $option => $data){
+			$key = strtoupper($option);
+			$sql .= " " . $key;
+			switch($key){
+				case 'WHERE':
+					if((count($data) % 3) != 0) throw new Exception();
+					$sql .= ' ' . $data[0] . ' ' . $data[1] . ' ?';
+					break;
+			}
+		}
+
+		$query = $this->_pdo->prepare($sql);
+		$i = 1;
+
+		foreach($args as $option => $data) {
+			$query->bindParam($i ,$data[2]);
+			$i++;
+		}
+
+		return $query;
+	}
+
+	/**
+	 * flush
+	 *
+	 * Reset query requests
+	 *
+	 */
+	private function flush() {
+		// INIT
+		$this->_count = 0;
+		$this->_errors = 0;
+		$this->_results = array();
+	}
 
     /**
      * select
      *
-     * Select something from DB
+     * Uses the query function to select data from some table
+     * and store teresults under results variable.
      *
-     * @param $query string sql to DB execute
+     * Example:.
+     * : select('users',array('id' =>'1'));
+     * : SELECT * FROM users WHERE id = :id
+     * : BIND :id = 1
+     *
+     * @param $table string table to execute query
+     * @param $where array associative array of condition values 
      * @return bool false if it go wrong
      */
-    public function select($query) {
-        if(!$this->_enable) return;
-        try {
-            $record = mysql_query($query);
+    public function select($table, $args = array()) {
+	    if(!isset($this->_pdo)) return false;
+	    $this->flush();
 
-            $this->_result = array();
-            $this->_num = 0;
+	    try{
 
-            while(($row = mysql_fetch_array($record, MYSQL_ASSOC))) {
-                $this->_result[$this->_num] = $row;
-                $this->_num++;
-            }
+		    $sql = "SELECT * FROM {$table}";
+		    $query = $this->prepareQuery($sql, $args);
+		    $query->execute();
+		    while($row = $query->fetch(PDO::FETCH_ASSOC)){
+			    $this->_results[$this->_count] = $row;
+			    $this->_count++;
+		    }
 
-            if($record === false) throw new Exception(mysql_error());
-            return true;
-        }catch(Exception $e){
-            echo $e->getMessage();
-            return false;
-        }
+	    }catch(Exception $e){return false; $this->_errors++;}
     }
 
     /**
      * insert
      *
-     * insert something in to DB
+     * Execute query and bind all the information on array
      *
-     * @param $query string sql to DB execute
+     * Example:.
+     * : insert('users',array('id' =>'null', 'name' => 'adam'));
+     * : INSERT * INTO users (id, name) VALUES (:id, :name);
+     * : BIND :id = null
+     * : BIND :name = adam
+     *
+     * @param $table string table to execute query
+     * @param $args array associative array of values to add
      * @return bool false if it go wrong
      */
-    public function insert($query) {
-        if(!$this->_enable) return;
-        try {
-            $record = mysql_query($query);
-            if($record === false) throw new Exception(mysql_error());
-            return true;
-        }catch(Exception $e){
-            echo $e->getMessage();
-            return false;
-        }
+    public function insert($table, $args = array()) {
+	    if(!isset($this->_pdo)) return false;
+	    $this->flush();
+
+	    try{
+		    $sql = "INSERT INTO {$table}";
+		    $start = "";
+		    $end = "";
+
+		    foreach($args as $key => $value){
+			    $start .= $key . ', ';
+			    $end .= ':' . $key . ', ';
+		    }
+
+		    $start = trim($start);
+		    $end = trim($end);
+		    $start = rtrim($start, ",");
+		    $end = rtrim($end, ",");
+
+		    $sql .= ' (' . $start . ') VALUES (' . $end .')';
+		    $query = $this->_pdo->prepare($sql);
+
+		    foreach($args as $key => $value){
+			    $query->bindValue($key, $value);
+		    }
+
+		    return $query->execute();
+
+	    }catch(Exception $e){return false;$this->_errors++;}
     }
 
-    /**
-     * getResults
-     *
-     * @return array data from the datagase
-     */
-    public function getResults() {
-        if(!$this->_enable) return;
-        return (isset($this->_result)) ? $this->_result : null;
-    }
+	public function insertUniq($table, $args = array()) {
+		$this->insert($table, $args);
+	}
 
-    /**
-     * getFirst
-     *
-     * @return object first row from DB
-     */
-    public function getFirst() {
-        if(!$this->_enable) return;
-        $var = (isset($this->_result)) ? $this->_result[0] : null;
-        return $var;
-    }
+	public function getResults(){
+		return (isset($this->_results)) ? $this->_results : false;
+	}
 
-    /**
-     * getNumElem
-     *
-     * @return int number of row's returned from DB
-     */
-    public function getNumElem(){
-        if(!$this->_enable) return;
-        return (isset($this->_num)) ? $this->_num : 0;
-    }
+	public function getCount(){
+		return (isset($this->_count)) ? $this->_count : 0;
+	}
 
-    /**
-     * endConnection
-     *
-     * end connection to DB
-     */
-    public function endConnection(){
-        if(!$this->_enable) return;
-        mysql_close();
-    }
+	public function getErrors(){
+		return (isset($this->_errors)) ? $this->_errors : 0;
+	}
+
+	public function setCharSetUTF8() {
+		$this->_pdo->exec("SET CHARACTER SET utf8");
+	}
 }

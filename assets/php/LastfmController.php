@@ -1,7 +1,6 @@
 <?php
 require_once 'DB.php';
 
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Class to handle the call's to the LastFM API
  * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -10,7 +9,14 @@ class LastfmController {
     private $_api_url;
     private $_db; // connection to our DB
 
-    public function __construct($db_hostname, $db_database, $db_username, $db_password, $api_key) {
+	/**
+	 * @param $db_hostname
+	 * @param $db_database
+	 * @param $db_username
+	 * @param $db_password
+	 * @param $api_key
+	 */
+	public function __construct($db_hostname, $db_database, $db_username, $db_password, $api_key) {
         /* Create the DB connection to store the log of query's to the lastFM API */
         $this->_db = new DB($db_hostname, $db_database, $db_username, $db_password);
 
@@ -136,14 +142,10 @@ class LastfmController {
         }
 
         // save data into DB
-        $args[0] = mysql_real_escape_string($url);
-        $args[1] = mysql_real_escape_string($tags);
-        $select = "SELECT * FROM logtag WHERE request = '{$args[0]}'";
-        $this->_db->select($select);
-        if($this->_db->getNumElem() == 0){
-            $query = "INSERT INTO logtag (id, request, response) VALUES (NULL, '{$args[0]}', '{$args[1]}');";
-            $this->_db->insert($query);
-        }
+	    $this->_db->insertUniq('logtag', array(
+		    'request' => $url,
+		    'response' => $tags
+	    ));
 
         return $tags;
     }
@@ -164,14 +166,10 @@ class LastfmController {
         $response = file_get_contents($url);
 
         // save data into DB
-        $args[0] = mysql_real_escape_string($url);
-        $args[1] = mysql_real_escape_string($response);
-        $select = "SELECT * FROM logtracks WHERE request LIKE '{$args[0]}' AND response LIKE '{$args[1]}'";
-        $this->_db->select($select);
-        if($this->_db->getNumElem() == 0){
-            $query = "INSERT INTO logtracks (id, request, response) VALUES (NULL, '{$args[0]}', '{$args[1]}');";
-            $this->_db->insert($query);
-        }
+	    $this->_db->insertUniq('logtracks', array(
+		    'request' => $url,
+		    'response' => $response
+	    ));
 
         return $response;
     }
@@ -213,14 +211,10 @@ class LastfmController {
         $response = file_get_contents($url);
 
         // save data into DB
-        $args[0] = mysql_real_escape_string($url);
-        $args[1] = mysql_real_escape_string($response);
-        $select = "SELECT * FROM logevent WHERE request = '{$args[0]}'";
-        $this->_db->select($select);
-        if($this->_db->getNumElem() == 0){
-            $query = "INSERT INTO logevent (id, request, response) VALUES (NULL, '{$args[0]}', '{$args[1]}');";
-            $this->_db->insert($query);
-        }
+	    $this->_db->insertUniq('logevent', array(
+		    'request' => $url,
+		    'response' => $response
+	    ));
 
         return $response;
     }
