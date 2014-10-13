@@ -79,6 +79,7 @@ class DB {
      * @return bool false if it go wrong
      */
     public function select($table, $args = array()) {
+	    if(!isset($this->_pdo)) return false;
 	    $this->flush();
 
 	    try{
@@ -110,6 +111,7 @@ class DB {
      * @return bool false if it go wrong
      */
     public function insert($table, $args = array()) {
+	    if(!isset($this->_pdo)) return false;
 	    $this->flush();
 
 	    try{
@@ -138,6 +140,10 @@ class DB {
 
 	    }catch(Exception $e){return false;$this->_errors++;}
     }
+
+	public function insertUniq($table, $args = array()) {
+		$this->insert($table, $args);
+	}
 
 	public function getResults(){
 		return (isset($this->_results)) ? $this->_results : false;
