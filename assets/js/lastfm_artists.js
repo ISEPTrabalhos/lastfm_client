@@ -86,6 +86,9 @@ function getMoreInfo(artistName, trackName) {
     }, "GET");
 
     // CREATE AND DISPLAY DIV
+
+    var tooltip = document.getElementById("tooltip");
+    tooltip.innerHTML = ""; // clear old div
     var widget = document.createElement("div");
     widget.className = "widget";
 
@@ -165,5 +168,5 @@ function getMoreInfo(artistName, trackName) {
     widget.appendChild(divImages);
 
     widget.style.display = "block";
-    document.getElementsByTagName("body")[0].appendChild(widget);
+    tooltip.appendChild(widget);
 }
