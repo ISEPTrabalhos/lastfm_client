@@ -49,17 +49,21 @@ function getTopTracksTag() {
             var tr = document.createElement("tr");
             var td = document.createElement("td");
             var a = document.createElement("a");
-            var text = document.createTextNode(topTracks[i].name);
-            a.appendChild(text);
+            //var text = document.createTextNode(topTracks[i].name);
+            //a.appendChild(text);
             var method = "getMoreInfo("+'"'+topTracks[i].artist.name+'"'+","+'"'+topTracks[i].name+'"'+")";
-            a.href="javascript:"+method+";";
-            td.appendChild(a);
+            //a.href="javascript:"+method+";";
+            //td.appendChild(a);
+            td.innerHTML += '<a onmouseover="'+
+                    "getMoreInfo('"+topTracks[i].artist.name+"', '"+topTracks[i].name+"');"
+                +'">'+topTracks[i].name+'</a>';
             tr.appendChild(td);
             table.appendChild(tr);
         }
         divTagTopTracks.appendChild(table);
     }, "GET");
 }
+
 
 //Function that  get's via AJaX a list of info of selected track
 function getMoreInfo(artistName, trackName) {
