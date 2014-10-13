@@ -1,44 +1,67 @@
 <?php
 class DB {
-	private static $_instance;
-	private $_pdo,
-			$_results,
-			$_count,
-			$_errors;
+    private $_pdo,
+        $_results,
+	    $_count,
+        $_errors;
 
-	// pattern design pattern
-	private function __construct($db_host, $db_name, $db_username, $db_password){
+	public function __construct($db_host, $db_name, $db_username, $db_password){
 		$this->_errors = 0;
         try{
             $this->_pdo = new PDO(
-                'mysql:host=' . $db_host .
+	            'mysql:host=' . $db_host .
                 ';dbname=' . $db_name ,
                 $db_username,
                 $db_password);
         }catch(PDOException $e){
         	$this->_errors++;
-            die($e->getMessage());
         }
-    }
-
-    public static function getInstance(){
-        if(!isset(self::$_instance)){
-            self::$_instance = new DB();
-        }
-        return self::$_instance;
     }
 
     /**
-     * query
+     * prepareQuery
      *
-     * Execute query, bind all the information on array
-     * and store all the data in results and count var's
+     * Bind all the information on query
      *
      * @param $sql string sql to DB execute
      * @param $args array of arguments to bind on $sql string
      * @return bool false if it go wrong
      */
-    private function query($sql, $args = array()) {}
+	private function prepareQuery($sql, $args = array()){
+		foreach($args as $option => $data){
+			$key = strtoupper($option);
+			$sql .= " " . $key;
+			switch($key){
+				case 'WHERE':
+					if((count($data) % 3) != 0) throw new Exception();
+					$sql .= ' ' . $data[0] . ' ' . $data[1] . ' ?';
+					break;
+			}
+		}
+
+		$query = $this->_pdo->prepare($sql);
+		$i = 1;
+
+		foreach($args as $option => $data) {
+			$query->bindParam($i ,$data[2]);
+			$i++;
+		}
+
+		return $query;
+	}
+
+	/**
+	 * flush
+	 *
+	 * Reset query requests
+	 *
+	 */
+	private function flush() {
+		// INIT
+		$this->_count = 0;
+		$this->_errors = 0;
+		$this->_results = array();
+	}
 
     /**
      * select
@@ -55,7 +78,21 @@ class DB {
      * @param $where array associative array of condition values 
      * @return bool false if it go wrong
      */
-    public function select($table, $where = array()) {}
+    public function select($table, $args = array()) {
+	    $this->flush();
+
+	    try{
+
+		    $sql = "SELECT * FROM {$table}";
+		    $query = $this->prepareQuery($sql, $args);
+		    $query->execute();
+		    while($row = $query->fetch(PDO::FETCH_ASSOC)){
+			    $this->_results[$this->_count] = $row;
+			    $this->_count++;
+		    }
+
+	    }catch(Exception $e){return false; $this->_errors++;}
+    }
 
     /**
      * insert
@@ -72,5 +109,49 @@ class DB {
      * @param $args array associative array of values to add
      * @return bool false if it go wrong
      */
-    public function insert($table, $args = array()) {}
+    public function insert($table, $args = array()) {
+	    $this->flush();
+
+	    try{
+		    $sql = "INSERT INTO {$table}";
+		    $start = "";
+		    $end = "";
+
+		    foreach($args as $key => $value){
+			    $start .= $key . ', ';
+			    $end .= ':' . $key . ', ';
+		    }
+
+		    $start = trim($start);
+		    $end = trim($end);
+		    $start = rtrim($start, ",");
+		    $end = rtrim($end, ",");
+
+		    $sql .= ' (' . $start . ') VALUES (' . $end .')';
+		    $query = $this->_pdo->prepare($sql);
+
+		    foreach($args as $key => $value){
+			    $query->bindValue($key, $value);
+		    }
+
+		    return $query->execute();
+
+	    }catch(Exception $e){return false;$this->_errors++;}
+    }
+
+	public function getResults(){
+		return (isset($this->_results)) ? $this->_results : false;
+	}
+
+	public function getCount(){
+		return (isset($this->_count)) ? $this->_count : 0;
+	}
+
+	public function getErrors(){
+		return (isset($this->_errors)) ? $this->_errors : 0;
+	}
+
+	public function setCharSetUTF8() {
+		$this->_pdo->exec("SET CHARACTER SET utf8");
+	}
 }
