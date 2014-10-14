@@ -5,7 +5,7 @@
         <title>Last FM Client</title>
 
         <!-- LOAD CSS SCRIPTS -->
-        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/style_sidebar.css">
 
         <!-- LOAD JS SCRIPTS -->
         <script type="text/javascript" src="assets/js/ajax.js"></script>
@@ -38,7 +38,7 @@
                         <td><input id="artistName" onkeyup="getArtistTopTags()" placeholder="Stevie Wonder" /></td>
                         <td><select id="selectTopTag"><option value="--">--</option></select></td>
                         <td><input type="text" id="topTrackLimit" value="5" placeholder="All" onkeyup="getTopTracksTag()"/></td>
-                        <td><button class="button" onclick="changeSearchTextField();">+</button></td>
+                        <td><button class="button" onclick="changeSearchTextField();"><i class="fa fa-plus"></i></button></td>
                     </tr>
                 </table>
 
@@ -51,7 +51,7 @@
                     <tr>
                         <td><input id="eventName" placeholder="California" onkeyup="getEvents(0);" /></td>
                         <td><input type="text" id="limkm" value="10" placeholder="10" /></td>
-                        <td><button class="button" onclick="changeSearchTextField();">-</button></td>
+                        <td><button class="button" onclick="changeSearchTextField();"><i class="fa fa-minus"></i></button></td>
                     </tr>
                 </table>
 
