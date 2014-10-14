@@ -1,0 +1,39 @@
+.divToolTip {
+    width: 100%;
+    margin: 0 auto;
+    background: rgba(0,0,0,0.7);
+    border: 1px solid black;
+    border-radius: 3px;
+    /*display: none;*/
+    padding: 10px 0 10px 0;
+}
+.divToolTip div {
+    /*float: left;*/
+    display: block;
+    color: green;
+    font-family: 'Oldenburg', cursive;
+    font-size: 13px;
+}
+.divToolTip .images {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    /*padding: 15px 0 15px 0;*/
+}
+.divToolTip .infos {
+    width: 50%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 5px 0 0 0;
+    text-align: center;
+}
+.divToolTip .images img {
+    display: block;
+    margin: 0 auto;
+    padding-top: 10px;
+    width: 100px;
+    height: 100px;
+}
+.divToolTip div span {
+    color: white;
+}

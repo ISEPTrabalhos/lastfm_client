@@ -1,11 +1,11 @@
 .divToolTip {
-    width: 700px;
+    width: 100%;
     margin: 0 auto;
     height: 200px;
     background: rgba(0,0,0,0.7);
     border: 1px solid black;
     border-radius: 3px;
-    display: none;
+    /*display: none;*/
 }
 .divToolTip div {
     float: left;
@@ -14,17 +14,22 @@
     font-size: 13px;
 }
 .divToolTip .images {
-    width: 110px;
-    margin: 0 20px 0 20px;
+    width: 25%;
+    height: 100%;
+    text-align: center;
+    padding-top: 15px;
 }
 .divToolTip .infos {
-    width: 350px;
-    margin: 20px 0 0 35px;
+    width: 50%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 10px 0 0 0;
+    text-align: center;
 }
 .divToolTip .images img {
-    padding-top: 10px;
-    width: 114px;
-    height: 114px;
+   padding-top: 10px;
+    width: 100px;
+    height: 100px;
 }
 .divToolTip div span {
     color: white;
