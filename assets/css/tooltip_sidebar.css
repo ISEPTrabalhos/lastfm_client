@@ -37,3 +37,15 @@
 .divToolTip div span {
     color: white;
 }
+
+.close{
+    width: 100%;
+    display: block;
+    text-align: right;
+}
+.close .fa{
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    padding-right: 10px;
+}

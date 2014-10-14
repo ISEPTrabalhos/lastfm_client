@@ -66,8 +66,9 @@ function getTopTracksTag() {
     }
 }
 
-function clearToolTipDiv() { // clear old div
-   document.getElementById("tooltip").innerHTML = "";
+function clearToolTipDiv(trackName) { // clear old tooltip div
+    var cell =  document.getElementById(trackName);
+    cell.removeChild(cell.childNodes.item(1));
 }
 
 //Function that  get's via AJaX a list of info of selected track
@@ -96,10 +97,10 @@ function getMoreInfo(artistName, trackName) {
     var divToolTip = document.createElement("div");
     divToolTip.className = "divToolTip";
 
-    /*add close button
+    //add close button
     var a = document.createElement("a");
-    widget.innerHTML += '<a href="javascript:clearToolTipDiv();" class="close"><i class="fa fa-times"></i></a>';
-    widget.appendChild(a);*/
+    divToolTip.innerHTML += '<div class="close"><a href="javascript:clearToolTipDiv(\''+trackName+'\');"><i class="fa fa-times"></i></a></div>';
+    divToolTip.appendChild(a);
 
     // left div
     var divImages = document.createElement("div");
