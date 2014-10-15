@@ -81,7 +81,7 @@ function getMoreInfo(artistName, trackName) {
         var response = JSON.parse(xmlHttpObj.responseText);
         info = response;
     }, "GET",false);
-
+    console.log(info[5])
     var mbid = info[0];
     var urlAlbumCover = "assets/php/ajaxRequest.php?func=getAlbumCover&mbid=" + mbid;
     var imgSrc;
@@ -147,7 +147,7 @@ function getMoreInfo(artistName, trackName) {
     var p = document.createElement("p");
     p.innerHTML = "Album Image: ";
     var image = document.createElement("img");
-	if(imgSrc[0] == '<') imgSrc = "http://img1.wikia.nocookie.net/__cb20130527163652/simpsons/images/thumb/6/60/No_Image_Available.png/480px-No_Image_Available.png";
+	if(imgSrc[0] == '<') imgSrc = info[5];
     image.src = imgSrc;
 
     p.appendChild(image);

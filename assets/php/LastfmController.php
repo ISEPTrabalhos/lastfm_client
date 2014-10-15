@@ -30,6 +30,7 @@ class LastfmController {
         $trackInfo = $this->getTrackInfo($get);
         $info[0] = $trackInfo[0];
         $info[1] = $trackInfo[1];
+        $info[5] = $trackInfo[2]; // in case of album cover doesnt work
         // get ARTIST IMAGE
         $info[2] = $this->getArtistImage($get);
         // get artist TOP 3 ALBUNS
@@ -113,6 +114,7 @@ class LastfmController {
         $info = array();
         $info[0] = $response['track']['album']['mbid'];
         $info[1] = $response['track']['album']['title'];
+        $info[2] = $response['track']['album']['image'][2]['#text'];
         return $info;
     }
 
