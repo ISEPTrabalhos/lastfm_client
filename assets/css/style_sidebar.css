@@ -42,7 +42,8 @@ body {
 }
 
 #warnings {
-	width: 87%;
+	width: 80%;
+	margin: 0 auto 20px auto;
 
 	background-color: rgb(160, 101, 79);
 
@@ -55,7 +56,6 @@ body {
 	font-family: 'Open Sans', sans-serif;
 
 	padding: 5px 20px 5px 20px;
-	margin: 0 0 20px 0;
 
 	position: inherit;
 	top: 40px;
