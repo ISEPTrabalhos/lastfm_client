@@ -1,69 +1,67 @@
 <!DOCTYPE html>
-<hmtl>
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-        <title>Last FM Client</title>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>Last FM Client</title>
 
-        <!-- LOAD CSS SCRIPTS -->
-        <link rel="stylesheet" type="text/css" href="assets/css/style_sidebar.css">
+		<!-- LOAD CSS SCRIPTS -->
+		<link rel="stylesheet" type="text/css" href="assets/css/style_sidebar.css">
 
-        <!-- LOAD JS SCRIPTS -->
-        <script type="text/javascript" src="assets/js/ajax.js"></script>
-        <script type="text/javascript" src="assets/js/lastfm_artists.js"></script>
-        <script type="text/javascript" src="assets/js/lastfm_events.js"></script>
+		<!-- LOAD JS SCRIPTS -->
+		<script type="text/javascript" src="assets/js/ajax.js"></script>
+		<script type="text/javascript" src="assets/js/lastfm_artists.js"></script>
+		<script type="text/javascript" src="assets/js/lastfm_events.js"></script>
+		<script type="text/javascript" src="assets/js/system-status.js"></script>
 
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-    </head>
-    <body>
-        <div id="tooltip">
-        </div>
-        <div id="headerTop">
-            <div>Trabalho 1 ARQSI - 2014 / 2015 | 1111305, 1111314, 1111623</div>
-        </div>
-        <div id="content">
-            <header>
-                <h1>Last.fm Client</h1>
-            </header>
-            <div class="wraper">
+	</head>
+	<body>
+		<div id="tooltip"></div>
 
-                <table border="0" width="100%" id="controlls" style="display: block;" >
-                    <tr>
-                        <th width="60%">Artist name</th>
-                        <th width="20%">Tag list</th>
-                        <th width="15%">Nº Results</th>
-                        <th width="5%"></th>
-                    </tr>
-                    <tr>
-                        <td><input id="artistName" onkeyup="getArtistTopTags()" placeholder="Stevie Wonder" /></td>
-                        <td><select id="selectTopTag"><option value="--">--</option></select></td>
-                        <td><input type="text" id="topTrackLimit" value="5" placeholder="All" onkeyup="getTopTracksTag()"/></td>
-                        <td><button class="button" onclick="changeSearchTextField();"><i class="fa fa-plus"></i></button></td>
-                    </tr>
-                </table>
+		<div id="headerTop"><div>Trabalho 1 ARQSI - 2014 / 2015 | 1111305, 1111314, 1111623</div></div>
 
-                <table border="0" width="100%" id="eventtable" style="display: none;" >
-                    <tr>
-                        <th width="75%">Location name</th>
-                        <th width="20%">Limit (km)</th>
-                        <th width="5%"></th>
-                    </tr>
-                    <tr>
-                        <td><input id="eventName" placeholder="California" onkeyup="getEvents(0);" /></td>
-                        <td><input type="text" id="limkm" value="10" placeholder="10" /></td>
-                        <td><button class="button" onclick="changeSearchTextField();"><i class="fa fa-minus"></i></button></td>
-                    </tr>
-                </table>
+		<div id="content">
+			<div id="warnings" style="display: none;"><strong>WARNING: </strong></div>
 
-                <section id="divTagTopTracks" class="results">
-                    <!-- the results from traks -->
-                </section>
-                <section id="divEventsResults" class="results">
-                    <!-- the results from events -->
-                </section>
+			<header>
+				<h1>Last.fm Client</h1>
+			</header>
 
-            </div> <!-- END WRAPER -->
-            </section>
-        </div> <!-- END CONTENT -->
-    </body>
-</hmtl>
+			<div class="wraper">
+
+				<table border="0" width="100%" id="controlls" style="display: block;" >
+					<tr>
+						<th width="60%">Artist name</th>
+						<th width="20%">Tag list</th>
+						<th width="15%">Nº Results</th>
+						<th width="5%"></th>
+					</tr>
+					<tr>
+						<td><input id="artistName" onkeyup="getArtistTopTags()" placeholder="Stevie Wonder" /></td>
+						<td><select id="selectTopTag"><option value="--">--</option></select></td>
+						<td><input type="text" id="topTrackLimit" value="5" placeholder="All" onkeyup="getTopTracksTag()"/></td>
+						<td><button class="button" onclick="changeSearchTextField();"><i class="fa fa-plus"></i></button></td>
+					</tr>
+				</table>
+
+				<table border="0" width="100%" id="eventtable" style="display: none;" >
+					<tr>
+						<th width="75%">Location name</th>
+						<th width="20%">Limit (km)</th>
+						<th width="5%"></th>
+					</tr>
+					<tr>
+						<td><input id="eventName" placeholder="California" onkeyup="getEvents(0);" /></td>
+						<td><input type="text" id="limkm" value="10" placeholder="10" /></td>
+						<td><button class="button" onclick="changeSearchTextField();"><i class="fa fa-minus"></i></button></td>
+					</tr>
+				</table>
+
+				<section id="divTagTopTracks" class="results"><!-- the results from traks --></section>
+				<section id="divEventsResults" class="results"><!-- the results from events --></section>
+
+			</div> <!-- END WRAPER -->
+		</div> <!-- END CONTENT -->
+	</body>
+</html>

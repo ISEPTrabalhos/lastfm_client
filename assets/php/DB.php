@@ -13,7 +13,7 @@ class DB {
                 ';dbname=' . $db_name ,
                 $db_username,
                 $db_password);
-        }catch(PDOException $e){
+        }catch(Exception $e){
         	$this->_errors++;
         }
     }

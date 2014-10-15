@@ -40,3 +40,26 @@ body {
 .invisible {
 	display: none;
 }
+
+#warnings {
+	width: 87%;
+
+	background-color: rgb(160, 101, 79);
+
+	-moz-box-shadow:    -2px 2px 7px 3px rgba(0,0,0,0.4);
+	-webkit-box-shadow: -2px 2px 7px 3px rgba(0,0,0,0.4);
+	box-shadow:         -2px 2px 7px 3px rgba(0,0,0,0.4);
+
+	border-radius: 7px;
+	color: #fff;
+	font-family: 'Open Sans', sans-serif;
+
+	padding: 5px 20px 5px 20px;
+	margin: 0 0 20px 0;
+
+	position: inherit;
+	top: 40px;
+	right: 5px;
+}
+
+#warnings p {margin: 0;  padding: 0;}
