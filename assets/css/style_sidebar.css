@@ -4,6 +4,9 @@
 @import url("artists_sidebar.css");
 body {
     background-image: url('../img/bg.png');
+	margin: 0;
+	padding: 0;
+	border: 0px;
 }
 #content {
 	width: 300px;
@@ -63,3 +66,19 @@ body {
 }
 
 #warnings p {margin: 0;  padding: 0;}
+
+#loading {
+	width: 100%;
+	position: absolute;
+	padding: 0;
+	margin: 0;
+	border: 0px;
+
+	text-align: center;
+
+	top: 300px;
+}
+
+#loading img {
+	width: 100px;
+}
