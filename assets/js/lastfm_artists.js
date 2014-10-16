@@ -81,7 +81,6 @@ function getMoreInfo(artistName, trackName) {
         var response = JSON.parse(xmlHttpObj.responseText);
         info = response;
     }, "GET",false);
-    console.log(info[5])
     var mbid = info[0];
     var urlAlbumCover = "assets/php/ajaxRequest.php?func=getAlbumCover&mbid=" + mbid;
     var imgSrc;

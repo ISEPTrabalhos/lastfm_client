@@ -190,7 +190,7 @@ class LastfmController {
      */
     public function getAlbumCover($get){
         $mbid = $get["mbid"];
-        $url = "http://ia701205.us.archive.org/12/items/mbid-" . $mbid . "/index.json";
+        $url = "http://coverartarchive.org/release/" . $mbid;
 
 	    try{
 	        $response = file_get_contents($url);
