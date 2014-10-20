@@ -12,6 +12,8 @@ article .title {
 }
 
 article .image {
+	width: 90%;
+	margin: 0 auto;
 	float: right;
 	border-radius: 3px;
 	margin-left: 5px;
