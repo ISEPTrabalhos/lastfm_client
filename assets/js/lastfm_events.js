@@ -98,7 +98,7 @@ function getEvents(page) {
                 image.alt = "ImageShow";
 
                 var lat = obj.venue.location["geo:point"]["geo:lat"];
-                var long = obj.venue.location["geo:point"]["geo:long"]
+                var long = obj.venue.location["geo:point"]["geo:long"];
 
                 map.width = "100%";
                 map.height = "400";
