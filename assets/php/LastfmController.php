@@ -137,7 +137,7 @@ class LastfmController {
 	    if(empty($get["artist"]) || $get["artist"] == ' ') return '';
 
         $url = $this->_api_url . 'artist.gettoptags&artist=' . $artist . '&api_key=' . $this->_api_key;
-        $responseXML = file_get_contents($url);
+        $responseXML = @file_get_contents($url);
 
         $newXML = new DOMDocument('1.0', 'ISO-8859-1');
 
