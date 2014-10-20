@@ -2,6 +2,7 @@
 @import url("tooltip.css");
 @import url("location.css");
 @import url("artists.css");
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css");
 
 body {
     margin: 0;

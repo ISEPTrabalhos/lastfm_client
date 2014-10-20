@@ -2,6 +2,8 @@
 @import url("tooltip_sidebar.css");
 @import url("location_sidebar.css");
 @import url("artists_sidebar.css");
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css");
+
 body {
     background-image: url('../img/bg.png');
 	margin: 0;
