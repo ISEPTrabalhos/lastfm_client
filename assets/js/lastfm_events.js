@@ -25,6 +25,7 @@ function getEvents(page) {
         var response = JSON.parse(xmlHttpObj.responseText);
 
         if(typeof response.events != 'undefined') {
+	        var i = 0;
             result.innerHTML = "";
             response.events.event.forEach(function(obj){
                 var article = document.createElement("article");
@@ -33,7 +34,8 @@ function getEvents(page) {
                 var location = document.createElement("p");
                 var locationSpan = document.createElement("span");
                 var start = document.createElement("p");
-                var description = document.createElement("p");
+                var description = document.createElement("div");
+	            var description_full = document.createElement("div");
                 var image = document.createElement("img");
                 var map = document.createElement("iframe");
                 var clear = document.createElement("div");
@@ -44,8 +46,12 @@ function getEvents(page) {
                 location.className = "location";
                 start.className = "start";
                 description.className = "description";
+	            description_full.className = "description_full";
                 image.className = "image";
                 clear.className = "clear";
+
+	            description.id = "description_" + i;
+	            description_full.id = "description_full_" + i;
 
                 article.setAttribute("itemscope", "");
                 article.setAttribute("itemtype", "http://schema.org/MusicEvent");
@@ -78,7 +84,16 @@ function getEvents(page) {
                 location.innerHTML = obj.venue.location.street + " " + obj.venue.location.city + " " + obj.venue.location.country;
 
                 start.innerHTML = obj.startDate;
-                description.innerHTML = obj.description;
+
+	            var str_size = 200;
+	            var tmp_desc = obj.description;
+	            if(tmp_desc.length > str_size) {
+		            description_full.innerHTML = tmp_desc;
+		            tmp_desc = tmp_desc.substring(0, str_size);
+		            tmp_desc += ' <span class="clickable" onclick="showFullDescription('+i+');">[see more...]</span></div>';
+	            }
+
+                description.innerHTML = tmp_desc;
                 image.src = obj.image[obj.image.length - 1]["#text"];
                 image.alt = "ImageShow";
 
@@ -98,18 +113,22 @@ function getEvents(page) {
                     '&zoom=15' +
                     '&maptype=satellite';
 
+	            description_full.style.display = "none";
 
                 result.appendChild(article);
                 article.appendChild(title);
                 if(obj.image[obj.image.length - 1]["#text"] != '') article.appendChild(image);
                 artistSpan.appendChild(artist);
                 article.appendChild(artistSpan);
-                locationSpan.appendChild(location)
+                locationSpan.appendChild(location);
                 article.appendChild(locationSpan);
                 article.appendChild(start);
                 article.appendChild(clear);
                 article.appendChild(description);
+	            article.appendChild(description_full);
                 article.appendChild(map);
+
+	            i++;
             });
 
             var page = response.events["@attr"].page;
@@ -130,4 +149,11 @@ function getEvents(page) {
 
         }
     }, "GET");
+}
+
+function showFullDescription(num){
+	var elem = document.getElementById("description_"+num);
+	var full = document.getElementById("description_full_"+num);
+	full.style.display = "block";
+	elem.style.display = "none";
 }

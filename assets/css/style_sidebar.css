@@ -82,3 +82,8 @@ body {
 #loading img {
 	width: 100px;
 }
+
+.clickable {
+	cursor: pointer;
+	color: orangered;
+}

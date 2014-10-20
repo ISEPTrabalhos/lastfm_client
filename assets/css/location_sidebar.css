@@ -12,11 +12,10 @@ article .title {
 }
 
 article .image {
-	width: 90%;
+	width: 97%;
 	margin: 0 auto;
 	float: right;
 	border-radius: 3px;
-	margin-left: 5px;
 }
 
 article .artist:before {content: 'Artist: '; font-weight: bold;}
