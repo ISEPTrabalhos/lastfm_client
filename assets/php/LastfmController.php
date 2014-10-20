@@ -22,7 +22,10 @@ class LastfmController {
 
         $this->_api_key = $api_key;
         $this->_api_url = "http://ws.audioscrobbler.com/2.0/?method=";
-    }
+
+		error_reporting(E_ALL);
+		ini_set('display_errors', '1');
+	}
 
     public function getAllInfo($get) {
         $info = array(); // array to store all info receveid
